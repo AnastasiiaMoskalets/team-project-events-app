@@ -26,6 +26,7 @@ html {
     flex-direction: column;
     align-items: center;
     margin: 5rem;
+    margin-top: 4rem;
 }
 
 
@@ -49,26 +50,46 @@ html {
     margin: 2rem;
     font-size: 2.5rem;
 }
+
 .form-input {
     width: 25rem;
-    height: 2.5rem;
+    height: 2rem;
     border-radius: 0.5rem;
     border: 0.1rem solid #EAEBF2;
+    padding: 0.5rem;
+    outline: none; /* Remove default outline */
+    transition: all 0.3s ease; /* Smooth transition */
 }
+
+.form-input:focus {
+    border-color: #7848F4; /* Change border color to purple */
+    box-shadow: 0 0 8px rgba(120, 72, 244, 0.3); /* Add a soft purple glow */
+    transform: scale(1.02); /* Slightly enlarge input field */
+}
+
+
+
 
 #sign-in-submit {
     color: white;
     background-color: #7848F4;
-    border: 0rem;
-    padding-top: 0.9rem;
-    padding-bottom: 0.9rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    border: 0;
+    padding: 0.9rem 3rem;
     font-size: 1rem;
     margin: 3rem;
     border-radius: 0.5rem;
     box-shadow: 5px 5px 10px #E9E8F4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother transition */
 }
+
+/* Hover effect */
+#sign-in-submit:hover {
+    background-color: #5a2fcf;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 .input-container {
    display: flex;
    flex-direction: column;
@@ -104,14 +125,20 @@ html {
 }
 
 #sign-up {
-    
-    background-color: rgb(255 255 255 / .32);
+    background-color: rgba(255, 255, 255, 0.32);
     color: white;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding: 0.8rem 3rem;
     border-radius: 0.5rem;
-    border: 0rem;
+    border: 0;
     font-size: 1rem;
+    transition: all 0.4s ease;
+    cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+/* Hover effect */
+#sign-up:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Lighten the background */
+     /* Change text color to match the sign-in button */
+    border: 1px solid white; /* Add a subtle white border */
+    transform: scale(1.05); /* Slightly increase size */
 }
