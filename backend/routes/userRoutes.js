@@ -54,7 +54,29 @@ router.post("/signin", async (req, res) => {
     }
 });
 
-module.exports = router;
+// Route for updating a user's profile
+router.put("/update-profile", async (req, res) => {
+    const { email, username, newEmail } = req.body;
+
+    try {
+        // Find the user by their email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Update the user's information
+        if (username) user.username = username;
+        if (newEmail) user.email = newEmail;
+
+        await user.save();
+        res.status(200).json({ message: "User profile updated successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 
 module.exports = router;
+
+
