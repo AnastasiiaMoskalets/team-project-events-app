@@ -1,24 +1,25 @@
 
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignUp from "./pages/signUp"
-import SignIn from "./pages/signIn"
-import userProfile from "./pages/userProfile"
-import './index.css'
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
 
-function App() {
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import UserProfile from "./pages/userProfile"
+
+export default function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signIn" Component={SignIn}/>
-          <Route path="/signUp" Component={SignUp}/>
-          <Route path="/userProfile" Component={userProfile}/>
-          <Route path="/" exact Component={SignIn}/> 
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        {/* Route for the UserPage */}
+        <Route path="/user" element={<UserProfile />} />
+      {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
+        {/* Routes under the /auth path */}
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
