@@ -4,9 +4,10 @@ const bcrypt = require("bcryptjs"); // Use bcrypt for hashing passwords
 const User = require("../models/User");
 const router = express.Router();
 
+
 // Route for signing up a user
 router.post("/signup", async (req, res) => {
-    const { username, email, passwordHash } = req.body;
+    const { username, email, password } = req.body;
 
     try {
         // Check if the email already exists
@@ -15,12 +16,18 @@ router.post("/signup", async (req, res) => {
             return res.status(400).json({ error: "Email already exists" });
         }
 
-        // Create a new user
-        const user = new User({ username, email, passwordHash });
-        await user.save();
+        const hashedPassword = await bcrypt.hash(password, 10);  // Hashing the password
+
+        const newUser = new User({
+            username,
+            email,
+            passwordHash: hashedPassword,  // Store the hashed password
+        });
+
+        await newUser.save();
         res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -29,15 +36,16 @@ router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ error: "User not found" });
+            return res.status(400).json({ error: "Invalid email" });
         }
 
-        // Compare hashed passwords
+        // Compare the password with the hashed password
         const isMatch = await bcrypt.compare(password, user.passwordHash);
         if (!isMatch) {
-            return res.status(400).json({ error: "Invalid credentials" });
+            return res.status(400).json({ error: "Invalid password" });
         }
 
         res.status(200).json({ message: "User signed in successfully" });
@@ -45,5 +53,8 @@ router.post("/signin", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+module.exports = router;
+
 
 module.exports = router;
