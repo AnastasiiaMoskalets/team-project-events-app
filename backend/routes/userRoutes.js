@@ -1,15 +1,14 @@
-// backend/routes/userRoutes.js
+п»ї// backend/routes/userRoutes.js
 const express = require("express");
-const bcrypt = require("bcryptjs"); // Use bcrypt for hashing passwords
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 const fs = require('fs');
+const multer = require("multer");
 const path = require('path');
 require("dotenv").config();
 const emailTemplate = fs.readFileSync(path.join(__dirname, '../routes/emailTemplate.html'), 'utf-8');
-
-
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -18,11 +17,9 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     },
     tls: {
-        rejectUnauthorized: false  // Ігнорує перевірку SSL сертифікатів
+        rejectUnauthorized: false
     }
 });
-
-
 
 // Route for signing up a user
 router.post("/signup", async (req, res) => {
@@ -51,7 +48,7 @@ router.post("/signup", async (req, res) => {
             subject: 'Registration Confirmation',
             html: personalizedHtml,
         };
-       
+
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log("Error sending email:", error);
@@ -82,11 +79,43 @@ router.post("/signin", async (req, res) => {
             return res.status(400).json({ error: "Invalid password" });
         }
 
+        // Create a session and store user info
+        
+
         res.status(200).json({ message: "User signed in successfully" });
+
+        req.session.email = user.email;
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+// Route to check session data
+router.get("/profile", async (req, res) => {
+    if (req.session.email) {
+        const user = await User.findOne({ email: req.session.email }); // Retrieve user info from the database
+        res.status(200).json({ message: "User is logged in", user });
+    } else {
+        res.status(400).json({ error: "No active session found" });
+    }
+});
+
+
+
+
+// Route to clear session (logout)
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ error: "Error logging out" });
+        }
+        res.status(200).json({ message: "Logged out successfully" });
+    });
+});
+
+
+
 
 // Route for updating a user's profile
 router.put("/update-profile", async (req, res) => {
@@ -110,7 +139,32 @@ router.put("/update-profile", async (req, res) => {
     }
 });
 
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'user-images'), // Corrected path
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    },
+});
+const upload = multer({ storage });
+
+// Route for updating profile image
+router.put("/update-image", upload.single("profileImage"), async (req, res) => {
+    try {
+        const { email } = req.body; // Getting email from the request body (assuming it's sent in the body)
+        const user = await User.findOne({ email }); // Find user by email
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        user.profileImage = req.file.path; // Store the file path in profileImage field
+        await user.save();
+
+        res.status(200).json({ message: "Profile image updated successfully", profileImage: user.profileImage });
+    } catch (error) {
+        res.status(500).json({ error: "Error updating profile image" });
+    }
+});
 
 module.exports = router;
-
-
