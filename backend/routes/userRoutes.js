@@ -4,15 +4,24 @@ const bcrypt = require("bcryptjs"); // Use bcrypt for hashing passwords
 const User = require("../models/User");
 const nodemailer = require("nodemailer");
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 require("dotenv").config();
+const emailTemplate = fs.readFileSync(path.join(__dirname, '../routes/emailTemplate.html'), 'utf-8');
+
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false  // Ігнорує перевірку SSL сертифікатів
     }
 });
+
 
 
 // Route for signing up a user
@@ -35,12 +44,12 @@ router.post("/signup", async (req, res) => {
         });
 
         await newUser.save();
-
+        const personalizedHtml = emailTemplate.replace('${username}', username);
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
             subject: 'Registration Confirmation',
-            text: `Hello ${username},\n\nThank you for registering at our site!`
+            html: personalizedHtml,
         };
        
         transporter.sendMail(mailOptions, (error, info) => {
