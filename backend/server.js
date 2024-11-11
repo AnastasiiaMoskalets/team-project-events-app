@@ -4,10 +4,14 @@ const session = require('express-session');
 const connectDB = require('./db');
 const MongoStore = require('connect-mongo');  // Import MongoStore
 const userRoutes = require('./routes/userRoutes');
+const cors = require('cors');
 
 const app = express();
+
+
 const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 // Middleware
 app.use(express.json());  // Allows the server to parse incoming JSON requests
 
