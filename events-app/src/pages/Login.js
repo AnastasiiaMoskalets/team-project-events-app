@@ -10,9 +10,9 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (email === 'user@example.com' && password === 'password123') {
+    if (email === 'user@gmail.com' && password === '1234') {
       // Redirect to the user profile
-      navigate('/userProfile');
+      navigate('/user');
       console.log("redirected to user profile");
     } else {
       setError('Invalid credentials. Please try again.');

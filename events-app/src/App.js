@@ -4,15 +4,15 @@ import AuthLayout from "./layouts/AuthLayout";
 
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
-import UserProfile from "./pages/userProfile"
+import UserLayout from "./layouts/UserLayout"
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
+        
         {/* Route for the UserPage */}
-        <Route path="/user" element={<UserProfile />} />
+        <Route path="/user" element={<UserLayout />} />
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
         {/* Routes under the /auth path */}
         <Route path="/auth" element={<AuthLayout />}>

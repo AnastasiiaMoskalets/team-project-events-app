@@ -10,9 +10,9 @@ const RegisterPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (email === 'user@example.com' && password === '12345') {
+    if (email === 'user@gmail.com' && password === '1234') {
       // Redirect to the user dashboard
-      navigate('/userprofile');
+      navigate('/user');
       console.log("redirected to user dashboard")
     } else {
       setError('Invalid credentials. Please try again.');

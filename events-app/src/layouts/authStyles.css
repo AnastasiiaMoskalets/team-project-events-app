@@ -9,8 +9,7 @@ body {
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h1 {
@@ -166,7 +165,7 @@ input {
     linear-gradient(
           rgba(0, 0, 0, 0.5), 
           rgba(0, 0, 0, 0.5)
-        ),url("./images/bg1.jpg");
+        ),url("../images/bg1.jpg");
     flex: 0 0 45%;
     background-size: cover; /* Cover the whole element */
     background-position: center;
@@ -279,13 +278,13 @@ input {
 
 .submit {
   color: white;
-    background-color: #7848F4;
-    border: 0;
-    padding: 0.9rem 3rem;
-    font-size: 1rem;
-    margin: 3rem;
-    border-radius: 0.5rem;
-    box-shadow: 5px 5px 10px #E9E8F4;
+  background-color: #7848F4;
+  border: 0;
+  padding: 0.9rem 3rem;
+  font-size: 1rem;
+  margin: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 10px #E9E8F4;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -307,3 +306,10 @@ input {
   font-size: 1rem;
   margin-bottom: 2.8rem;
 }
+.profile-image{
+  height: 100%;
+}
+
+
+
+

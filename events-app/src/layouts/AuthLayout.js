@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation, Outlet } from "react-router";
-import "./styles.css";
+import "./authStyles.css";
 
 const AuthLayout = ({ children }) => {
   const location = useLocation();
