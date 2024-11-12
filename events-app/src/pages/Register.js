@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterPage = () => {
   const [userName, setUserName] = useState('');
@@ -8,14 +9,30 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email === 'user@example.com' && password === '12345') {
-      // Redirect to the user dashboard
-      navigate('/userprofile');
-      console.log("redirected to user dashboard")
-    } else {
-      setError('Invalid credentials. Please try again.');
+    
+    const data = {
+      username: userName,
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/signup', data);
+
+      if(response.status === 201){
+        navigate('/user');
+        console.log("User registered successfully");
+      }
+    } catch(error){
+      if(error.response) {
+        console.log(error.response)
+        setError(error.response.data.error || 'Failed to register. Please try again.' )
+      } else {
+        console.log(error)
+        setError('An error occurred. Please try again later.');
+      }
     }
   };
   return (
