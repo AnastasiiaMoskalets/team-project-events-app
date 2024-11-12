@@ -8,7 +8,9 @@ const fs = require('fs');
 const multer = require("multer");
 const path = require('path');
 require("dotenv").config();
-const emailTemplate = fs.readFileSync(path.join(__dirname, '../routes/emailTemplate.html'), 'utf-8');
+
+const generateEmailTemplate = require('./emailTemplate');
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,7 +19,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     },
     tls: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false  
     }
 });
 
@@ -41,14 +43,27 @@ router.post("/signup", async (req, res) => {
         });
 
         await newUser.save();
-        const personalizedHtml = emailTemplate.replace('${username}', username);
+        const personalizedHtml = generateEmailTemplate(username);
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
             subject: 'Registration Confirmation',
             html: personalizedHtml,
+            attachments: [
+                {
+                    filename: 'logo512.png',
+                    path: path.join(__dirname, 'logo512.png'),
+                    cid: 'logoImage'  // Content-ID for referencing in HTML
+                },
+                {
+                    filename: 'events_app.jpg',
+                    path: path.join(__dirname, 'events_app.jpg'),
+                    cid: 'heroImage'  // Content-ID for referencing in HTML
+                }
+            ]
         };
 
+       
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log("Error sending email:", error);
