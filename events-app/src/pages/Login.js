@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Login() {
@@ -8,15 +9,31 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email === 'user@gmail.com' && password === '1234') {
-      // Redirect to the user profile
-      navigate('/user');
-      console.log("redirected to user profile");
-    } else {
-      setError('Invalid credentials. Please try again.');
+    const data = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/signin', data);
+      console.log(response.data)
+      console.log(response.status)
+      if(response.status === 200){
+        navigate('/user');
+        console.log("User registered successfully");
+      }
+    } catch(error){
+      if(error.response) {
+        console.log(error.response)
+        setError(error.response.data.error || 'Failed to register. Please try again.' )
+      } else {
+        console.log(error)
+        setError('An error occurred. Please try again later.');
+      }
     }
+
+
   };
   return (
     <div className="form-container sign-in-container">
