@@ -96,10 +96,13 @@ router.post("/signin", async (req, res) => {
 
         // Create a session and store user info
         
+        req.session.email = user.email;
+        console.log('Session Email:', req.session.email);
+        console.log("Session created:", req.session);  // Check if session data is being saved
 
         res.status(200).json({ message: "User signed in successfully" });
 
-        req.session.email = user.email;
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -108,6 +111,8 @@ router.post("/signin", async (req, res) => {
 
 // Route to check session data
 router.get("/profile", async (req, res) => {
+    console.log("Session data: ", req.session);
+
     if (req.session.email) {
         const user = await User.findOne({ email: req.session.email }); // Retrieve user info from the database
         res.status(200).json({ message: "User is logged in", user });
@@ -128,6 +133,28 @@ router.get("/logout", (req, res) => {
         res.status(200).json({ message: "Logged out successfully" });
     });
 });
+
+// Route to check profile data
+router.get("/profile-data", async (req, res) => {
+    console.log("Accessing /profile-data route"); // Debugging log
+    try {
+        if (!req.session.email) {
+            return res.status(401).json({ error: "Unauthorized: No active session" });
+        }
+        const user = await User.findOne({ email: req.session.email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json({
+            username: user.username,
+            email: user.email,
+            profileImage: user.profileImage,
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error retrieving user data" });
+    }
+});
+
 
 
 

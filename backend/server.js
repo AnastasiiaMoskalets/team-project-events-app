@@ -11,7 +11,11 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',  // replace with your frontend URL
+    credentials: true
+}));
+
 // Middleware
 app.use(express.json());  // Allows the server to parse incoming JSON requests
 
@@ -21,14 +25,17 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: true },  // Set to true if using https
+        cookie: { secure: false, maxAge: 7200 * 1000 },
         store: MongoStore.create({
-            mongoUrl: process.env.MONGO_URI,  // Use your MongoDB URI from .env
-            collectionName: 'sessions',       // This is the collection that will store session data
-            ttl: 14 * 24 * 60 * 60,           // Session expiration time (14 days)
+            mongoUrl: process.env.MONGO_URI,
+            collectionName: 'sessions',
+            ttl: 7200,  // Set session expiration time to 2 hours
         }),
+        rolling: true  // This ensures that the session is refreshed on each request
     })
 );
+
+
 
 // Connect to MongoDB
 connectDB();
