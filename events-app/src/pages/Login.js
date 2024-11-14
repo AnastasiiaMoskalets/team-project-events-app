@@ -2,7 +2,6 @@ import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +15,9 @@ function Login() {
       password: password,
     };
     try {
-      const response = await axios.post('http://localhost:5000/api/users/signin', data);
+      const response = await axios.post('http://localhost:5000/api/users/signin', data,{
+        withCredentials: true // Include credentials (cookies) with the request
+    });
       console.log(response.data)
       console.log(response.status)
       if(response.status === 200){
