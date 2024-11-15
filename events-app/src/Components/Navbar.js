@@ -12,7 +12,7 @@ const Navbar = () => {
       <ul className="navbar-links">
         <li>
           <NavLink 
-            to="/events"
+            to="/"
             className={({ isActive }) => (isActive ? "active" : "nav-link")}
           >
             Browse events
@@ -20,7 +20,7 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink 
-            to="/Dashboard"
+            to="/events"
             className={({ isActive }) => (isActive ? "active" : "nav-link")}
           >
             My events
