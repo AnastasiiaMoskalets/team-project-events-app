@@ -19,7 +19,9 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/signup', data);
+      const response = await axios.post('http://localhost:5000/api/users/signup', data,{
+        withCredentials: true // Include credentials (cookies) with the request
+    });
 
       if(response.status === 201){
         navigate('/user');

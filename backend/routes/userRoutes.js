@@ -43,6 +43,7 @@ router.post("/signup", async (req, res) => {
         });
 
         await newUser.save();
+        req.session.email = newUser.email;
         const personalizedHtml = generateEmailTemplate(username);
         const mailOptions = {
             from: process.env.EMAIL_USER,
