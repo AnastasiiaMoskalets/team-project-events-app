@@ -4,7 +4,9 @@ const session = require('express-session');
 const connectDB = require('./db');
 const MongoStore = require('connect-mongo');  // Import MongoStore
 const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -42,6 +44,9 @@ connectDB();
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/user-images', express.static(path.join(__dirname, 'public/user-images')));// Serve files from backend/routes/user-images
+
 
 // Catch all errors
 app.use((err, req, res, next) => {
@@ -52,3 +57,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+

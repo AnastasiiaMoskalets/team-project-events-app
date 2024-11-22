@@ -23,6 +23,29 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'user-images'),
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    },
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (!allowedTypes.includes(file.mimetype)) {
+        cb(new Error("Only JPEG and PNG images are allowed"));
+    } else {
+        cb(null, true);
+    }
+};
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+});
+
+
 // Route for signing up a user
 router.post("/signup", async (req, res) => {
     const { username, email, password } = req.body;
@@ -137,7 +160,6 @@ router.get("/logout", (req, res) => {
 
 // Route to check profile data
 router.get("/profile-data", async (req, res) => {
-    console.log("Accessing /profile-data route"); // Debugging log
     try {
         if (!req.session.email) {
             return res.status(401).json({ error: "Unauthorized: No active session" });
@@ -146,15 +168,18 @@ router.get("/profile-data", async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
+
+        const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
         res.status(200).json({
             username: user.username,
             email: user.email,
-            profileImage: user.profileImage,
+            profileImage: fullImageUrl,
         });
     } catch (error) {
         res.status(500).json({ error: "Error retrieving user data" });
     }
 });
+
 
 
 
@@ -182,32 +207,31 @@ router.put("/update-profile", async (req, res) => {
     }
 });
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'user-images'), // Corrected path
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
-});
-const upload = multer({ storage });
+
 
 // Route for updating profile image
 router.put("/update-image", upload.single("profileImage"), async (req, res) => {
     try {
-        const { email } = req.body; // Getting email from the request body (assuming it's sent in the body)
-        const user = await User.findOne({ email }); // Find user by email
+        const { email } = req.body; // Get email from the request body
+        const user = await User.findOne({ email }); // Find the user by email
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        user.profileImage = req.file.path; // Store the file path in profileImage field
+        // Save the new profile image path
+        user.profileImage = `/user-images/${req.file.filename}`; // Store relative path
         await user.save();
 
-        res.status(200).json({ message: "Profile image updated successfully", profileImage: user.profileImage });
+        // Return the full URL
+        const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
+        res.status(200).json({ message: "Profile image updated successfully", profileImage: fullImageUrl });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Error updating profile image" });
     }
 });
+
+
 
 module.exports = router;
