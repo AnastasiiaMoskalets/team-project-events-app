@@ -2,6 +2,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const Event = require("../models/Event");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 const fs = require('fs');
@@ -170,10 +171,12 @@ router.get("/profile-data", async (req, res) => {
         }
 
         const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
+        const events = await Event.find({ organiserEmail: user.email });
         res.status(200).json({
             username: user.username,
             email: user.email,
             profileImage: fullImageUrl,
+            events: events
         });
     } catch (error) {
         res.status(500).json({ error: "Error retrieving user data" });
