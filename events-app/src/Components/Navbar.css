@@ -59,3 +59,17 @@ a{
     margin: auto;
     padding: auto;
   }
+  .fa-arrow-right-from-bracket{
+    font-size: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+  #iconLi{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #iconLi:hover{
+    background-color: #5a2fcf;
+  }

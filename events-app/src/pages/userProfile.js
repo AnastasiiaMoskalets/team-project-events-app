@@ -1,42 +1,29 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect,useContext } from 'react';
 import defaultProfile from "../images/defaultProfile.png"
 import axios from 'axios';
+import UserContext from "../UserContext";
 
 function UserProfile() {
-    const initialUserData = {
-        username: "init",
-        email: "init",
-        profileImage: "init"
-    };
-
-    const [formData, setFormData] = useState({ ...initialUserData });
+    
     const [isEditable, setIsEditable] = useState(false);
     const [isUpdated, setIsUpdated] = useState(false);
-
+    const { userData} = useContext(UserContext);
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        profileImage: "",
+    });
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/api/users/profile-data", {
-                    withCredentials: true
-                });
-                console.log(response.data.username);
-                if (response.status === 200) {
-                    console.log("setting user data")
-                    setFormData({
-                        username: response.data.username,
-                        email: response.data.email,
-                        profileImage: response.data.profileImage
-                    });
-                    console.log(formData);
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            } //finally {
-                //setLoading(false);
-           // }
-        };
-        fetchUserData();
-    }, []);
+        if (userData) {
+            console.log("data setting")
+            setFormData({
+                username: userData.username,
+                email: userData.email,
+                profileImage: userData.profileImage,
+            });
+        }
+    }, [userData]);
+
 
 
     useEffect(() => {
@@ -48,11 +35,7 @@ function UserProfile() {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
 
         // Check if there are changes
-        setIsUpdated(
-            value !== initialUserData[name] ||
-            formData.username !== initialUserData.username ||
-            formData.email !== initialUserData.email
-        );
+        setIsUpdated(true);
     };
 
     const enableEditing = () => {
@@ -82,7 +65,7 @@ function UserProfile() {
             <h1 className='account-header'>User Account</h1>
             <div className='info-container'>
                 <div className='image-container'>
-                    <img className="profile-image" id='in-profile-image' src={formData.profileImage} alt="User Profile"/>
+                    <img className="profile-image" id='in-profile-image' /*src={formData.profileImage}*/src={defaultProfile} alt="User Profile"/>
                     <button id='update-image-button'>
                         Upload new photo
                     </button>

@@ -135,11 +135,8 @@ router.post("/signin", async (req, res) => {
 
 
 // Route to check session data
-router.get("/profile", async (req, res) => {
-    console.log("Session data: ", req.session);
-
+router.get("/", async (req, res) => {
     if (req.session.email) {
-        const user = await User.findOne({ email: req.session.email }); // Retrieve user info from the database
         res.status(200).json({ message: "User is logged in", user });
     } else {
         res.status(400).json({ error: "No active session found" });
