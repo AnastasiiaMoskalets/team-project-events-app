@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'user-images'),
+    destination: path.join(__dirname, '../public/user-images'),  // Correct path
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`);
     },
@@ -212,15 +212,16 @@ router.put("/update-profile", async (req, res) => {
 // Route for updating profile image
 router.put("/update-image", upload.single("profileImage"), async (req, res) => {
     try {
-        const { email } = req.body; // Get email from the request body
-        const user = await User.findOne({ email }); // Find the user by email
+        const { email } = req.body;  // Get email from the request body
+        const user = await User.findOne({ email });  // Find the user by email
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Save the new profile image path
-        user.profileImage = `/user-images/${req.file.filename}`; // Store relative path
+        // Save the new profile image path (relative to public)
+        user.profileImage = `/user-images/${req.file.filename}`;  // Correct path
+
         await user.save();
 
         // Return the full URL

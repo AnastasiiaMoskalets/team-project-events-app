@@ -1,13 +1,12 @@
-import React, { useState ,useEffect,useContext } from 'react';
-import defaultProfile from "../images/defaultProfile.png"
+import React, { useState ,useEffect,useContext} from 'react';
 import axios from 'axios';
 import UserContext from "../UserContext";
-
+import { FileUpload } from 'primereact/fileupload';
 function UserProfile() {
     
     const [isEditable, setIsEditable] = useState(false);
     const [isUpdated, setIsUpdated] = useState(false);
-    const { userData} = useContext(UserContext);
+    const { userData, fetchUserData} = useContext(UserContext);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -59,16 +58,59 @@ function UserProfile() {
         }
         
     };
+      // Custom upload handler
+      const customUploadHandler = async (event) => {
+        const file = event.files[0]; // Get the selected file
+
+        // Create FormData to send the file and email to the backend
+        const uploadData = new FormData();
+        uploadData.append("profileImage", file); // 'profileImage' is the expected field in your backend
+        uploadData.append("email", formData.email); // Append the email from formData to the request
+
+        try {
+            const response = await axios.put(
+                "http://localhost:5000/api/users/update-image", // Your backend URL
+                uploadData,
+                {
+                    withCredentials: true, // Ensure cookies/session are sent along with the request
+                    headers: {
+                        "Content-Type": "multipart/form-data", // Set the correct content type for file uploads
+                    },
+                }
+            );
+
+            // If successful, update the profile image URL
+            if (response.status === 200) {
+                alert("Profile image updated successfully!");
+                setFormData((prevData) => ({
+                    ...prevData,
+                    profileImage: response.data.profileImage, // Update the profile image with the new URL
+                }));
+                fetchUserData()
+            }
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Failed to upload the image. Please try again.");
+        }
+    };
 
     return (
         <div className='user-container'>
             <h1 className='account-header'>User Account</h1>
             <div className='info-container'>
                 <div className='image-container'>
-                    <img className="profile-image" id='in-profile-image' /*src={formData.profileImage}*/src={defaultProfile} alt="User Profile"/>
-                    <button id='update-image-button'>
-                        Upload new photo
-                    </button>
+                    <img className="profile-image" id='in-profile-image' src={formData.profileImage} alt="User Profile"/>
+                    <FileUpload
+                        key={formData.profileImage}
+                        mode="basic"
+                        name="profileImage"
+                        customUpload
+                        uploadHandler={customUploadHandler} 
+                        accept="image/*"
+                        auto
+                        maxFileSize={1000000}
+                        chooseLabel="Upload New Photo"
+                    />
                     <button id='remove-image-button'>
                         Remove
                     </button>
