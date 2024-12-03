@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Navigate } from "react-router-dom";
 import "../layouts/userEventsStyles.css";
 
 function UserEvents() {
@@ -50,45 +49,40 @@ function UserEvents() {
     }
 
     return (
-        <div className='user-events-container'>
-            <h1 className='account-header'>{userData.username}'s Dashboard</h1>
-            <div className='info-container'>
-                <div className='events-header'>
-                    <h2>Your Events</h2>
-                    <button
-                        onClick={handleCreateEventClick}
-                        className="create-event-button"
-                    >
-                        Create an Event
-                    </button>
-                </div>
+        <div className='user-info-container'>
+            {/* Заголовок сторінки */}
+            <div className='user-events-header'>
+                <h1 className='user-account-header'>{userData.username}'s Dashboard</h1>
+                <button
+                    onClick={handleCreateEventClick}
+                    id="user-update-image-button"
+                >
+                    Create Event
+                </button>
+            </div>
 
-                {isCreatingEvent && (
-                    <div className="event-creation-form">
-                        {/* Placeholder for event creation logic */}
-                        <h3>Event Creation Form (Placeholder)</h3>
-                        <p>This will be a form to create a new event. Implement later.</p>
-                    </div>
-                )}
-
-                {/* List of events (if available) */}
-                <div className='events-list'>
-                    {userData.events.length === 0 ? (
-                        <p>You have no events yet. Create one to get started!</p>
-                    ) : (
-                        userData.events.map((event, index) => (
-                            <div key={index} className="event-card">
+            {/* Список подій */}
+            <div className='user-events-list'>
+                {userData.events.length === 0 ? (
+                    <p>You have no events yet. Create one to get started!</p>
+                ) : (
+                    userData.events.map((event, index) => (
+                        <div key={index} className="user-event-card">
+                            <div className="user-event-card-header">
                                 <h3>{event.title}</h3>
+                                <button className="user-event-button">RSVP</button>
+                            </div>
+                            <div className="user-event-card-content">
                                 <p>{event.date}</p>
                                 <p>{event.description}</p>
-                                {/* Placeholder for participant list or other event details */}
                             </div>
-                        ))
-                    )}
-                </div>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );
+
 }
 
 export default UserEvents;

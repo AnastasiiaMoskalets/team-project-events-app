@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+user-body * {
+    font-family: "Montserrat", sans-serif;
+    color: #131315; /* Text color adjusted to match dark text from the photo */
+    justify-content: center;
+}
+
+user-body {
+    background-color: #FFFFFF; /* White background for the whole page */
+    display: flex;
+    justify-content: center; /* Горизонтальне центрування */
+    align-items: center; /* Вертикальне центрування */
+    min-height: 100vh; /* Забезпечує повноекранну висоту */
+}
+
+.user-info-container {
+    width: 150%; /* Займає 80% ширини */
+    margin: 2rem auto;
+    padding: 2rem; /* Внутрішній відступ */
+    border-radius: 1.5rem; /* Закруглення кутів */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Легка тінь */
+    text-align: center; /* Центрування тексту */
+    background-color: #F1F1F4;
+    max-width: 75rem; /* Максимальна ширина (1200px -> 75rem) */
+    min-width: 37rem; /* Мінімальна ширина (600px -> 37.5rem) */
+}
+
+
+.user-info-container h1 { /* Припускаючи, що це заголовок імені */
+        margin-bottom: 1rem; /* Регулює відстань до кнопки */
+}
+
+.user-info-container button {
+        margin-top: 0; /* Може допомогти уникнути зайвого відступу */
+}
+
+.user-image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#user-in-profile-image {
+    padding: 0;
+    height: 4rem;
+    margin-left: 0;
+}
+
+.user-image-container * {
+    margin: 2rem;
+}
+
+user-form {
+    padding: 0;
+}
+
+.user-account-header {
+    margin-bottom: 3rem;
+    margin-top: 4rem;
+}
+
+#user-update-image-button {
+    color: white;
+    background-color: #7848F4;
+    border: 0;
+    padding: 1.3rem 3rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #E9E8F4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+    #user-update-image-button:hover {
+        background-color: #5a2fcf;
+        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+#user-remove-image-button {
+    color: black;
+    background-color: #E9E9F0;
+    border: 0;
+    padding: 1.3rem 3rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #E9E8F4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+    #user-remove-image-button:hover {
+        background-color: #c7c7d7;
+        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+.user-profile-input {
+    width: 35rem;
+    height: 3rem;
+    font-size: 1.1rem;
+}
+
+.user-profile-form-label {
+    font-size: 0.8rem;
+}
+
+#user-edit-button, #user-update-button {
+    color: white;
+    background-color: #7848F4;
+    border: 0;
+    padding: 1.3rem 3rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #E9E8F4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+    #user-edit-button:disabled, #user-update-button:disabled {
+        color: black;
+        background-color: #E9E9F0;
+        border: 0;
+        padding: 1.3rem 3rem;
+        font-size: 1.1rem;
+        border-radius: 0.5rem;
+        box-shadow: 5px 5px 10px #E9E8F4;
+    }
+
+        #user-edit-button:disabled:hover, #user-update-button:disabled:hover {
+            background-color: #E9E9F0;
+            box-shadow: 5px 5px 10px #E9E8F4;
+            transform: none;
+            cursor: auto;
+        }
+
+    #user-edit-button:hover, #user-update-button:hover {
+        background-color: #5a2fcf;
+        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+.user-profile-buttons-container {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-profile-input-container {
+    margin-left: 0;
+}
+
+/* User Events Styles */
+.user-events-header {
+    display: flex;
+    justify-content: space-between; /* Вирівнювання по горизонталі */
+    align-items: center; /* Вирівнювання по вертикалі */
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.user-account-header {
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 0; /* Зменшуємо відступи для гармонійного вигляду */
+    margin-top: 0;
+    font-size: 1.5rem; /* Налаштовуємо розмір шрифту */
+    font-weight: bold; /* Робимо текст жирнішим */
+    font-size: 2rem;
+}
+
+
+.user-events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.user-events-header h1 {
+    flex: 1; /* Дозволяє заголовку займати лише доступне місце */
+    margin: 0; /* Забезпечує відсутність зайвих відступів */
+}
+
+#user-update-image-button {
+    flex-shrink: 0; /* Забороняє кнопці стискатися */
+    margin-left: 1rem; /* Відступ для візуального розділення */
+}
+
+    .user-event-card:hover {
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.user-event-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-event-card-content {
+    margin-top: 1rem;
+}
+
+.user-event-button {
+    color: white;
+    background-color: #7848F4; /* Main color for event button */
+    border: 0;
+    padding: 1.3rem 3rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 10px #E9E8F4;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-top: 1rem;
+}
+
+    .user-event-button:hover {
+        background-color: #5a2fcf;
+        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+
+#root {
+    display: flex;
+    justify-content: center; /* Горизонтальне центрування */
+    align-items: center; /* Вертикальне центрування */
+    height: 100%; /* Забезпечує вирівнювання */
+    width: 100%; /* Забезпечує, що ширина відповідає розміру вікна */
+    height: 100%;
+}
+.dashboard-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #131315;
+    z-index: 10;
+}
+
+.dashboard-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+}

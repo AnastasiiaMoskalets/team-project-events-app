@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+event-body * {
+    font-family: "Montserrat", sans-serif;
+    color: #131315;
+}
+
+event-body {
+    background-color: #F1F1F4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Для розташування заголовка зверху */
+    align-items: center;
+    justify-content: center;
+    min-width: 100vh; /* Висота екрану */
+    align-items: center;
+}
+
+/* Заголовок Create Event */
+event-h1 {
+    text-align: center;
+    font-size: 2rem; /* Відносний розмір тексту */
+    color: #131315;
+    margin-bottom: 1.5rem;
+}
+
+/* Основний контейнер форми */
+.event-info-container {
+    width: 100%; /* Займає 80% ширини сторінки */
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    text-align: center;
+    align-items: center;
+}
+
+/* Поля вводу */
+.event-profile-input {
+    width: 100%; /* Поля займають всю ширину контейнера */
+    padding: 0.8em;
+    font-size: 1em;
+    border: 0.1em solid #ccc; /* Світло-сіра обводка */
+    border-radius: 0.5em; /* Закруглені краї */
+    background-color: #FFFFFF;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Текстове поле */
+textarea.event-profile-input {
+    resize: none; /* Заборона зміни розміру */
+}
+
+/* Написи перед полями */
+event-label {
+    font-size: 1rem;
+    color: #131315;
+    font-weight: bold;
+}
+
+/* Кнопка створення події */
+.event-button {
+    color: white;
+    background-color: #7848F4;
+    border: none;
+    padding: 1em 2em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0.3em 0.3em 0.6em rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%; /* Кнопка займає всю ширину */
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+    .event-button:hover {
+        background-color: #5a2fcf;
+        box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
+
+/* Повідомлення про успіх або помилку */
+p {
+    margin: 1rem 0;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+}
+
+    p[style*="color: green"] {
+        color: #28a745 !important;
+    }
+
+    p[style*="color: red"] {
+        color: #dc3545 !important;
+    }
+
+event-form {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
