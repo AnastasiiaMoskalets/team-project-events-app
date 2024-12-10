@@ -31,7 +31,7 @@ function generateEmailTemplate(username) {
                 <p>Thank you for registering at our site!</p>
             </div>
             <div class="footer">
-                © 2024 Events app. All rights reserved.
+                ï¿½ 2024 Events app. All rights reserved.
             </div>
         </div>
     </body>

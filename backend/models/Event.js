@@ -9,6 +9,8 @@ const EventSchema = new mongoose.Schema({
     location: { type: String, required: true },
     maxSpots: { type: Number, required: true },
     availableSpots: { type: Number, required: true },
+    price: { type: Number, required: true },
+    eventImage: { type: String, default: "/user-images/eventDefault.png" }
 });
 
 module.exports = mongoose.model("Event", EventSchema);

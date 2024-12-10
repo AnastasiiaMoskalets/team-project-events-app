@@ -11,6 +11,8 @@ const path = require('path');
 require("dotenv").config();
 
 const generateEmailTemplate = require('./emailTemplate');
+const DEFAULT_IMAGE = '/default.png'; // Define the default image path
+
 
 
 const transporter = nodemailer.createTransport({
@@ -146,15 +148,17 @@ router.get("/", async (req, res) => {
 
 
 
-// Route to clear session (logout)
-router.get("/logout", (req, res) => {
+router.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            return res.status(500).json({ error: "Error logging out" });
+            console.error('Error destroying session:', err);
+            return res.status(500).send('Failed to log out');
         }
-        res.status(200).json({ message: "Logged out successfully" });
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        console.error('Logout');
     });
 });
+
 
 // Route to check profile data
 router.get("/profile-data", async (req, res) => {
@@ -216,7 +220,19 @@ router.put("/update-image", upload.single("profileImage"), async (req, res) => {
         const user = await User.findOne({ email });  // Find the user by email
 
         if (!user) {
+            // Delete the uploaded file if user is not found
+            if (req.file) {
+                fs.unlinkSync(req.file.path); // Remove the newly uploaded file
+            }
             return res.status(404).json({ error: "User not found" });
+        }
+
+        // Check if the user already has an existing image and delete it (only if it's not the default)
+        if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
+            const oldImagePath = path.join(__dirname, '..', 'public', user.profileImage);
+            if (fs.existsSync(oldImagePath)) {
+                fs.unlinkSync(oldImagePath); // Delete the old image file
+            }
         }
 
         // Save the new profile image path (relative to public)
@@ -224,14 +240,52 @@ router.put("/update-image", upload.single("profileImage"), async (req, res) => {
 
         await user.save();
 
-        // Return the full URL
+        // Return the full URL of the new image
         const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
         res.status(200).json({ message: "Profile image updated successfully", profileImage: fullImageUrl });
     } catch (error) {
         console.error(error);
+
+        // Clean up in case of errors
+        if (req.file) {
+            fs.unlinkSync(req.file.path); // Remove the newly uploaded file
+        }
+
         res.status(500).json({ error: "Error updating profile image" });
     }
 });
+
+router.put("/delete-image", async (req, res) => {
+    try {
+        const { email } = req.body;  // Get email from the request body
+        const user = await User.findOne({ email });  // Find the user by email
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Check if the user has a custom image and delete it
+        if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
+            const imagePath = path.join(__dirname, '..', 'public', user.profileImage);
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath); // Delete the custom image file
+            }
+        }
+
+        // Set the profile image to the default image
+        user.profileImage = DEFAULT_IMAGE;
+        await user.save();
+
+        // Return the default image URL
+        const fullDefaultImageUrl = `${req.protocol}://${req.get('host')}${DEFAULT_IMAGE}`;
+        res.status(200).json({ message: "Profile image reset to default", profileImage: fullDefaultImageUrl });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error deleting profile image" });
+    }
+});
+
+
 
 
 

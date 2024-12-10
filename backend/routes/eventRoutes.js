@@ -2,10 +2,45 @@ const express = require("express");
 const Event = require("../models/Event");
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // Authentication middleware
+const fs = require('fs');
+const multer = require("multer");
+const path = require('path');
+
+const DEFAULT_IMAGE = "/user-images/eventDefault.png";
+
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "../public/user-images"),
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    },
+});
+
+// Multer file filter
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (!allowedTypes.includes(file.mimetype)) {
+        cb(new Error("Only JPEG and PNG images are allowed"));
+    } else {
+        cb(null, true);
+    }
+};
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+});
+
+// Helper function to delete a file if it exists
+const deleteFileIfExists = (filePath) => {
+    if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
+};
 
 // Create a new event
 router.post("/create", isAuthenticated, async (req, res) => {
-    const { title, description, date, time, location, maxSpots } = req.body;
+    const { title, description, date, time, location, maxSpots, price } = req.body;
 
     try {
         // Use the authenticated user's email
@@ -19,7 +54,8 @@ router.post("/create", isAuthenticated, async (req, res) => {
             time,
             location,
             maxSpots,
-            availableSpots: maxSpots, // Initially all spots are available
+            availableSpots: maxSpots,
+            price,// Initially all spots are available
         });
 
         await event.save();
@@ -96,7 +132,7 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
         }
 
         // Exclude organizerEmail from being updated
-        const allowedUpdates = ["title", "description", "date", "time", "location", "maxSpots", "availableSpots"];
+        const allowedUpdates = ["title", "description", "date", "time", "location", "maxSpots", "availableSpots", "price", ];
         Object.keys(updates).forEach((key) => {
             if (allowedUpdates.includes(key)) {
                 event[key] = updates[key];
@@ -127,6 +163,84 @@ router.delete("/delete/:id", isAuthenticated, async (req, res) => {
         res.status(200).json({ message: "Event deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+router.put("/update-image/:id", isAuthenticated, upload.single("eventImage"), async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            const organizerEmail = req.session.email;
+
+            // Find the event and verify ownership
+            const event = await Event.findOne({ _id: id, organizerEmail });
+            if (!event) {
+                // Delete uploaded file if the event is not found
+                if (req.file) {
+                    deleteFileIfExists(req.file.path);
+                }
+                return res.status(404).json({ error: "Event not found or not authorized" });
+            }
+
+            // Delete the previous image if it's not the default
+            if (event.eventImage && event.eventImage !== DEFAULT_IMAGE) {
+                const oldImagePath = path.join(__dirname, "../public", event.eventImage);
+                deleteFileIfExists(oldImagePath);
+            }
+
+            // Save the new image path
+            event.eventImage = `/user-images/${req.file.filename}`;
+            await event.save();
+
+            const fullImageUrl = `${req.protocol}://${req.get("host")}${event.eventImage}`;
+            res.status(200).json({
+                message: "Event image updated successfully",
+                eventImage: fullImageUrl,
+            });
+        } catch (error) {
+            console.error(error);
+
+            // Clean up the uploaded file if an error occurs
+            if (req.file) {
+                deleteFileIfExists(req.file.path);
+            }
+
+            res.status(500).json({ error: "Error updating event image" });
+        }
+    }
+);
+
+// Delete event image and reset to default
+router.put("/reset-image/:id", isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const organizerEmail = req.session.email;
+
+        // Find the event and verify ownership
+        const event = await Event.findOne({ _id: id, organizerEmail });
+        if (!event) {
+            return res.status(404).json({ error: "Event not found or not authorized" });
+        }
+
+        // Delete the current image if it's not the default
+        if (event.eventImage && event.eventImage !== DEFAULT_IMAGE) {
+            const oldImagePath = path.join(__dirname, "../public", event.eventImage);
+            deleteFileIfExists(oldImagePath);
+        }
+
+        // Reset to the default image
+        event.eventImage = DEFAULT_IMAGE;
+        await event.save();
+
+        const fullDefaultImageUrl = `${req.protocol}://${req.get("host")}${DEFAULT_IMAGE}`;
+        res.status(200).json({
+            message: "Event image reset to default",
+            eventImage: fullDefaultImageUrl,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error resetting event image" });
     }
 });
 
