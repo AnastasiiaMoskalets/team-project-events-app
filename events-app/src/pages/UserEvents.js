@@ -49,6 +49,7 @@ function UserEvents() {
     }
 
     return (
+        <div className="user-events-page">
         <div className='user-info-container'>
             {/* Заголовок сторінки */}
             <div className='user-events-header'>
@@ -79,6 +80,7 @@ function UserEvents() {
                         </div>
                     ))
                 )}
+            </div>
             </div>
         </div>
     );

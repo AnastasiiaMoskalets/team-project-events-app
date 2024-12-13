@@ -51,12 +51,12 @@ function CreateEvent() {
     };
 
     return (
-        <div>
-            {/* Заголовок над формою */}
-            <h1>Create an Event</h1>
+        <div className="event-body">
+            
+            <h1 className="event-h1">Create an Event</h1>
 
             <div className="event-info-container">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="event-form">
                     <div className="event-form-group">
                         <label htmlFor="title">Event Title</label>
                         <input
@@ -85,58 +85,62 @@ function CreateEvent() {
                         />
                     </div>
 
-                    <div className="event-form-group">
-                        <label htmlFor="date">Event Date</label>
-                        <input
-                            type="date"
-                            id="date"
-                            name="date"
-                            value={eventData.date}
-                            onChange={handleChange}
-                            className="event-profile-input"
-                            required
-                        />
+
+                    <div className="date-time-container">
+                        <div>
+                            <label htmlFor="date">Event Date</label>
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                value={eventData.date}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="time">Event Time</label>
+                            <input
+                                type="time"
+                                id="time"
+                                name="time"
+                                value={eventData.time}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
                     </div>
 
-                    <div className="event-form-group">
-                        <label htmlFor="time">Event Time</label>
-                        <input
-                            type="time"
-                            id="time"
-                            name="time"
-                            value={eventData.time}
-                            onChange={handleChange}
-                            className="event-profile-input"
-                            required
-                        />
-                    </div>
-
-                    <div className="event-form-group">
-                        <label htmlFor="location">Location</label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            placeholder="Enter event location"
-                            value={eventData.location}
-                            onChange={handleChange}
-                            className="event-profile-input"
-                            required
-                        />
-                    </div>
-
-                    <div className="event-form-group">
-                        <label htmlFor="maxSpots">Maximum Spots</label>
-                        <input
-                            type="number"
-                            id="maxSpots"
-                            name="maxSpots"
-                            placeholder="Enter maximum spots"
-                            value={eventData.maxSpots}
-                            onChange={handleChange}
-                            className="event-profile-input"
-                            required
-                        />
+                    
+                    <div className="location-spots-container">
+                        <div>
+                            <label htmlFor="location">Location</label>
+                            <input
+                                type="text"
+                                id="location"
+                                name="location"
+                                placeholder="Enter event location"
+                                value={eventData.location}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="maxSpots">Maximum Spots</label>
+                            <input
+                                type="number"
+                                id="maxSpots"
+                                name="maxSpots"
+                                placeholder="Enter maximum spots"
+                                value={eventData.maxSpots}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
                     </div>
 
                     {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}

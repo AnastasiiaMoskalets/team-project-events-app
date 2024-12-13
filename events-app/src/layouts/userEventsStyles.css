@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 user-body * {
     font-family: "Montserrat", sans-serif;
     color: #131315; /* Text color adjusted to match dark text from the photo */
@@ -13,27 +17,37 @@ user-body {
     align-items: center; /* Вертикальне центрування */
     min-height: 100vh; /* Забезпечує повноекранну висоту */
 }
+.user-events-page {
+    width: 100vw; /* Полная ширина */
+    height: 100vh; /* Полная высота */
+    display: flex;
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    background-color: white; /* Задний фон страницы */
+    margin: 0;
+    padding: 0;
+}
 
+/* Контейнер для информации пользователя */
 .user-info-container {
-    width: 150%; /* Займає 80% ширини */
-    margin: 2rem auto;
-    padding: 2rem; /* Внутрішній відступ */
-    border-radius: 1.5rem; /* Закруглення кутів */
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Легка тінь */
-    text-align: center; /* Центрування тексту */
-    background-color: #F1F1F4;
-    max-width: 75rem; /* Максимальна ширина (1200px -> 75rem) */
-    min-width: 37rem; /* Мінімальна ширина (600px -> 37.5rem) */
+    width: 100%; /* Заполняет всю ширину внешнего контейнера */
+    max-width: 75rem; /* Максимальная ширина */
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #f1f1f4;
 }
 
 
-.user-info-container h1 { /* Припускаючи, що це заголовок імені */
+    .user-info-container h1 { /* Припускаючи, що це заголовок імені */
         margin-bottom: 1rem; /* Регулює відстань до кнопки */
-}
+    }
 
-.user-info-container button {
+    .user-info-container button {
         margin-top: 0; /* Може допомогти уникнути зайвого відступу */
-}
+    }
 
 .user-image-container {
     display: flex;
@@ -156,19 +170,19 @@ user-form {
 /* User Events Styles */
 .user-events-header {
     display: flex;
-    justify-content: space-between; /* Вирівнювання по горизонталі */
-    align-items: center; /* Вирівнювання по вертикалі */
+    justify-content: space-between; /* Вирівнювання елементів */
+    align-items: center;
     margin-bottom: 1.5rem;
     width: 100%;
+    padding: 1rem 2rem; /* Відступи, схожі на відступи кнопки */
 }
-
-.user-account-header {
-    font-family: "Montserrat", sans-serif;
-    margin-bottom: 0; /* Зменшуємо відступи для гармонійного вигляду */
-    margin-top: 0;
-    font-size: 1.5rem; /* Налаштовуємо розмір шрифту */
-    font-weight: bold; /* Робимо текст жирнішим */
-    font-size: 2rem;
+.user-account-header 
+{font-family: "Montserrat", sans-serif;
+margin-bottom: 0; /* Зменшуємо відступи для гармонійного вигляду */
+margin-top: 0;
+font-size: 1.5rem; /* Налаштовуємо розмір шрифту */
+font-weight: bold; /* Робимо текст жирнішим */
+font-size: 2rem;
 }
 
 
@@ -180,8 +194,9 @@ user-form {
 }
 
 .user-events-header h1 {
-    flex: 1; /* Дозволяє заголовку займати лише доступне місце */
-    margin: 0; /* Забезпечує відсутність зайвих відступів */
+    margin: 0; /* Видалити зайві відступи */
+    font-size: 1.5rem; /* Розмір шрифту */
+    font-weight: bold; /* Жирний текст */
 }
 
 #user-update-image-button {
@@ -189,9 +204,9 @@ user-form {
     margin-left: 1rem; /* Відступ для візуального розділення */
 }
 
-    .user-event-card:hover {
-        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15);
-    }
+.user-event-card:hover {
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15);
+}
 
 .user-event-card-header {
     display: flex;
@@ -201,6 +216,11 @@ user-form {
 
 .user-event-card-content {
     margin-top: 1rem;
+}
+
+.user-events-header button {
+    flex-shrink: 0; /* Заборонити кнопці стискатися */
+    margin-left: auto; /* Додати автоматичний відступ для переміщення кнопки */
 }
 
 .user-event-button {
@@ -223,26 +243,11 @@ user-form {
     }
 
 
-#root {
+#user-root {
     display: flex;
     justify-content: center; /* Горизонтальне центрування */
     align-items: center; /* Вертикальне центрування */
     height: 100%; /* Забезпечує вирівнювання */
     width: 100%; /* Забезпечує, що ширина відповідає розміру вікна */
     height: 100%;
-}
-.dashboard-label {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #131315;
-    z-index: 10;
-}
-
-.dashboard-container {
-    position: relative;
-    width: 100%;
-    height: auto;
 }

@@ -1,20 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-event-body * {
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw; /* Полная ширина */
+    height: 100vh; /* Полная высота */
+    background-color: #f8f9fa;
     font-family: "Montserrat", sans-serif;
-    color: #131315;
 }
 
 event-body {
-    background-color: #F1F1F4;
+    width: 100vw; /* Полная ширина */
+    height: 100vh; /* Полная высота */
+    display: flex;
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    background-color: #f8f9fa; /* Задний фон страницы */
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column; /* Для розташування заголовка зверху */
-    align-items: center;
-    justify-content: center;
-    min-width: 100vh; /* Висота екрану */
-    align-items: center;
 }
 
 /* Заголовок Create Event */
@@ -108,4 +111,58 @@ event-form {
     height: 100%;
     text-align: center;
 }
+
+.date-time-container,
+.location-spots-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+    .date-time-container .event-profile-input,
+    .location-spots-container .event-profile-input {
+        width: 100%;
+    }
+
+.event-info-container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.date-time-container .icon,
+.location-spots-container .icon {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+}
+
+
+.date-time-container input[type="date"]::before,
+.date-time-container input[type="time"]::before,
+.location-spots-container input[type="text"]::before {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    margin-right: 1rem;
+}
+
+
+.date-time-container,
+.location-spots-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+    .date-time-container input,
+    .location-spots-container input {
+        padding-left: 4.5rem;
+    }
 
