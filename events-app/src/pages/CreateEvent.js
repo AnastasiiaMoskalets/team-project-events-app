@@ -119,6 +119,7 @@ function CreateEvent() {
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
+                                min="0"
                             />
                         </div>
                     </div>
@@ -189,7 +190,9 @@ function CreateEvent() {
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
+                                min="1"  // Забороняємо введення значень менших за 1
                             />
+
                         </div>
                     </div>
 

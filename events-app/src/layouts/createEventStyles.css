@@ -1,19 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw; /* Полная ширина */
-    height: 100vh; /* Полная высота */
-    background-color: #f8f9fa;
-    font-family: "Montserrat", sans-serif;
-}
-
 event-body {
+    margin-top: 5rem;
     display: flex;
     align-items: center;
-    justify-content: center; /* Центрируем содержимое по горизонтали */
-    align-items: center; /* Центрируем содержимое по вертикали */
+    justify-content: center; 
+    align-items: center; 
     width: 70%;
     max-width: 30rem;
     margin: 0 auto;
@@ -24,19 +16,19 @@ event-body {
     max-height: 20rem;
 }
 
-/* Заголовок Create Event */
+
 event-h1 {
     text-align: center;
-    font-size: 1.5rem; /* Відносний розмір тексту */
+    font-size: 1.5rem; 
     color: #131315;
     margin-bottom: 1.5rem;
 }
 
-/* Основний контейнер форми */
+
 .event-info-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Займає 80% ширини сторінки */
+    width: 100%; 
     padding: 2rem;
     background-color: #FFFFFF;
     border-radius: 1.5rem;
@@ -45,32 +37,32 @@ event-h1 {
     align-items: center;
 }
 
-/* Поля вводу */
+
 .event-profile-input {
-    width: 100%; /* Поля займають всю ширину контейнера */
+    width: 100%; 
     padding: 0.8em;
     font-size: 1em;
-    border: 0.1em solid #ccc; /* Світло-сіра обводка */
-    border-radius: 0.5em; /* Закруглені краї */
+    border: 0.1em solid #ccc; 
+    border-radius: 0.5em; 
     background-color: #FFFFFF;
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     box-sizing: border-box;
 }
 
-/* Текстове поле */
+
 textarea.event-profile-input {
-    resize: none; /* Заборона зміни розміру */
+    resize: none;
 }
 
-/* Написи перед полями */
+
 event-label {
     font-size: 1rem;
     color: #131315;
     font-weight: bold;
 }
 
-/* Кнопка створення події */
+
 .event-button {
     color: white;
     background-color: #7848F4;
@@ -80,7 +72,7 @@ event-label {
     border-radius: 0.5em;
     box-shadow: 0.3em 0.3em 0.6em rgba(0, 0, 0, 0.1);
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    width: 100%; /* Кнопка займає всю ширину */
+    width: 100%; 
     cursor: pointer;
     font-weight: bold;
     margin-top: 1rem;
@@ -172,39 +164,39 @@ event-form {
         padding-left: 4.5rem;
     }
 
-/* Adjust the .add-image-container to use flexbox for horizontal layout */
+
 .add-image-container {
     display: flex;
-    align-items: center; /* Vertically align the items */
-    justify-content: space-between; /* Space out the items */
+    align-items: center; 
+    justify-content: space-between; 
 }
 
-/* Style the button */
+
 .add-image-button {
-    margin-right: 1rem; /* Add some space between the button and input */
-    width: auto; /* Make the button width adjust to its content */
-    padding: 0.8em 1.5em; /* Adjust padding to make the button more compact */
-    margin-right: 0.8rem; /* Match the right margin of the Price input */
+    margin-right: 1rem; 
+    width: auto; 
+    padding: 0.8em 1.5em; 
+    margin-right: 0.8rem; 
 }
 
-/* Adjust the file input width */
+
 #eventImage {
-    display: none; /* Hide the default file input */
+    display: none; 
 }
-/* Title and Price fields in the same row */
+
 .title-price-container {
     display: flex;
-    justify-content: space-between; /* Distribute space between items */
-    gap: 1rem; /* Add space between the elements */
+    justify-content: space-between; 
+    gap: 1rem; 
     margin-bottom: 1.5rem;
 }
 
-    /* Ensure both input fields (title and price) take up equal space */
+    
     .title-price-container .event-profile-input {
-        width: 100%; /* Make inputs take full width of their container */
-        flex: 1; /* Allow inputs to stretch and distribute space evenly */
+        width: 100%; 
+        flex: 1; 
     }
-/* Adjust the text area to have the same padding as the other input fields */
+
 textarea.event-profile-input {
     resize: none; /* Prevent resizing */
     padding-left: 1.5rem; /* Add padding for alignment */
