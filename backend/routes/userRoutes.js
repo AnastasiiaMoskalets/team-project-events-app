@@ -172,12 +172,12 @@ router.get("/profile-data", async (req, res) => {
         }
 
         const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
-        const events = await Event.find({ organiserEmail: user.email });
+        const events = await Event.find({ organizerEmail: req.session.email });
         res.status(200).json({
             username: user.username,
             email: user.email,
             profileImage: fullImageUrl,
-            events: events
+            events,
         });
     } catch (error) {
         res.status(500).json({ error: "Error retrieving user data" });

@@ -39,12 +39,16 @@ const deleteFileIfExists = (filePath) => {
 };
 
 // Create a new event
-router.post("/create", isAuthenticated, async (req, res) => {
+router.post("/create", isAuthenticated, upload.single("eventImage"), async (req, res) => {
     const { title, description, date, time, location, maxSpots, price } = req.body;
 
     try {
-        // Use the authenticated user's email
         const organizerEmail = req.session.email;
+
+        let eventImage = DEFAULT_IMAGE; 
+        if (req.file) {
+            eventImage = `/user-images/${req.file.filename}`; 
+        }
 
         const event = new Event({
             organizerEmail,
@@ -54,16 +58,24 @@ router.post("/create", isAuthenticated, async (req, res) => {
             time,
             location,
             maxSpots,
-            availableSpots: maxSpots,
-            price,// Initially all spots are available
+            availableSpots: maxSpots, 
+            price,
+            eventImage,
         });
 
         await event.save();
-        res.status(201).json({ message: "Event created successfully", event });
+        const fullImageUrl = `${req.protocol}://${req.get("host")}${event.eventImage}`;
+        res.status(201).json({ message: "Event created successfully", event, eventImage: fullImageUrl });
     } catch (error) {
+        console.error(error);
+        if (req.file) {
+            deleteFileIfExists(req.file.path);
+        }
+
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Get all events (public route)
 router.get("/all", async (req, res) => {
