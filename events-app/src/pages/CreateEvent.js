@@ -10,8 +10,10 @@ function CreateEvent() {
         time: "",
         location: "",
         maxSpots: "",
+        price: "",
     });
 
+    const [eventImage, setEventImage] = useState(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,14 +25,27 @@ function CreateEvent() {
         }));
     };
 
+    const handleImageChange = (e) => {
+        setEventImage(e.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccessMessage("");
         setErrorMessage("");
 
+        const formData = new FormData();
+        Object.keys(eventData).forEach((key) => {
+            formData.append(key, eventData[key]);
+        });
+        if (eventImage) {
+            formData.append("eventImage", eventImage);
+        }
+
         try {
-            const response = await axios.post("/api/events/create", eventData, {
+            const response = await axios.post("/api/events/create", formData, {
                 withCredentials: true, // Include cookies for authentication
+                headers: { "Content-Type": "multipart/form-data" },
             });
             setSuccessMessage("Event created successfully!");
             console.log("Event created:", response.data);
@@ -41,7 +56,9 @@ function CreateEvent() {
                 time: "",
                 location: "",
                 maxSpots: "",
+                price: "",
             });
+            setEventImage(null);
         } catch (error) {
             setErrorMessage(
                 error.response?.data?.error || "Failed to create event. Please try again."
@@ -52,23 +69,58 @@ function CreateEvent() {
 
     return (
         <div className="event-body">
-            
-            <h1 className="event-h1">Create an Event</h1>
-
             <div className="event-info-container">
+                <h1 className="event-h1">Create an Event</h1>
                 <form onSubmit={handleSubmit} className="event-form">
                     <div className="event-form-group">
-                        <label htmlFor="title">Event Title</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            placeholder="Enter event title"
-                            value={eventData.title}
-                            onChange={handleChange}
-                            className="event-profile-input"
-                            required
-                        />
+                        <div className="add-image-container">
+                            <div className="add-image-text">
+                                {eventImage ? eventImage.name : "No image selected"}
+                            </div>
+                            <button
+                                type="button"
+                                className="event-button add-image-button"
+                                onClick={() => document.getElementById("eventImage").click()}
+                            >
+                                Add an Image
+                            </button>
+                            <input
+                                type="file"
+                                id="eventImage"
+                                name="eventImage"
+                                onChange={handleImageChange}
+                                accept="image/*"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="event-form-group title-price-container">
+                        <div style={{ flex: 2 }}>
+                            <label htmlFor="title">Event Title</label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="Enter event title"
+                                value={eventData.title}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <label htmlFor="price">Price ($)</label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                placeholder="Enter price"
+                                value={eventData.price}
+                                onChange={handleChange}
+                                className="event-profile-input"
+                                required
+                            />
+                        </div>
                     </div>
 
                     <div className="event-form-group">
@@ -84,7 +136,6 @@ function CreateEvent() {
                             required
                         />
                     </div>
-
 
                     <div className="date-time-container">
                         <div>
@@ -113,7 +164,6 @@ function CreateEvent() {
                         </div>
                     </div>
 
-                    
                     <div className="location-spots-container">
                         <div>
                             <label htmlFor="location">Location</label>

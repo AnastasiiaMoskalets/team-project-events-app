@@ -10,26 +10,32 @@ html, body {
 }
 
 event-body {
-    width: 100vw; /* Полная ширина */
-    height: 100vh; /* Полная высота */
     display: flex;
+    align-items: center;
     justify-content: center; /* Центрируем содержимое по горизонтали */
     align-items: center; /* Центрируем содержимое по вертикали */
-    background-color: #f8f9fa; /* Задний фон страницы */
-    margin: 0;
-    padding: 0;
+    width: 70%;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    min-height: 5rem;
+    height: 15rem;
+    max-height: 20rem;
 }
 
 /* Заголовок Create Event */
 event-h1 {
     text-align: center;
-    font-size: 2rem; /* Відносний розмір тексту */
+    font-size: 1.5rem; /* Відносний розмір тексту */
     color: #131315;
     margin-bottom: 1.5rem;
 }
 
 /* Основний контейнер форми */
 .event-info-container {
+    display: flex;
+    flex-direction: column;
     width: 100%; /* Займає 80% ширини сторінки */
     padding: 2rem;
     background-color: #FFFFFF;
@@ -86,7 +92,7 @@ event-label {
         transform: scale(1.05);
     }
 
-/* Повідомлення про успіх або помилку */
+
 p {
     margin: 1rem 0;
     font-weight: bold;
@@ -166,3 +172,71 @@ event-form {
         padding-left: 4.5rem;
     }
 
+/* Adjust the .add-image-container to use flexbox for horizontal layout */
+.add-image-container {
+    display: flex;
+    align-items: center; /* Vertically align the items */
+    justify-content: space-between; /* Space out the items */
+}
+
+/* Style the button */
+.add-image-button {
+    margin-right: 1rem; /* Add some space between the button and input */
+    width: auto; /* Make the button width adjust to its content */
+    padding: 0.8em 1.5em; /* Adjust padding to make the button more compact */
+    margin-right: 0.8rem; /* Match the right margin of the Price input */
+}
+
+/* Adjust the file input width */
+#eventImage {
+    display: none; /* Hide the default file input */
+}
+/* Title and Price fields in the same row */
+.title-price-container {
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    gap: 1rem; /* Add space between the elements */
+    margin-bottom: 1.5rem;
+}
+
+    /* Ensure both input fields (title and price) take up equal space */
+    .title-price-container .event-profile-input {
+        width: 100%; /* Make inputs take full width of their container */
+        flex: 1; /* Allow inputs to stretch and distribute space evenly */
+    }
+/* Adjust the text area to have the same padding as the other input fields */
+textarea.event-profile-input {
+    resize: none; /* Prevent resizing */
+    padding-left: 1.5rem; /* Add padding for alignment */
+    padding-right: 1.5rem; /* Add padding for alignment */
+    width: 100%; /* Ensure it spans the entire width of its container */
+}
+
+/* Add spacing around the description field to match other fields */
+.event-form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+    /* Adjust the description field layout so that it's consistent with other fields */
+    .event-form-group textarea {
+        margin-left: 0; /* No left margin */
+        margin-right: 0; /* No right margin */
+    }
+
+/* Adjust the input fields for Location and Maximum Spots */
+.location-spots-container .event-profile-input {
+    padding-left: 0.8em; /* Remove excessive left padding */
+    padding-right: 0.8em; /* Same padding as other fields */
+    width: 100%; /* Ensure the inputs fill the container width */
+}
+
+/* Make sure the Location and Maximum Spots inputs are aligned left */
+.location-spots-container input {
+    text-align: left; /* Ensure text aligns to the left */
+}
+
+/* Adjust the Location and Maximum Spots fields to align with the others */
+.location-spots-container div {
+    flex: 1; /* Ensure they stretch evenly across the container */
+}
