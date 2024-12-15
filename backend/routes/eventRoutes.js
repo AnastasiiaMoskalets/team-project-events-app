@@ -87,20 +87,6 @@ router.get("/all", async (req, res) => {
     }
 });
 
-// Get details of a specific event (public route)
-router.get("/:id", async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const event = await Event.findById(id);
-        if (!event) {
-            return res.status(404).json({ error: "Event not found" });
-        }
-        res.status(200).json(event);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
 
 // Search events by title (or category-like filtering, public route)
 router.get("/search", async (req, res) => {
@@ -120,14 +106,29 @@ router.get("/search", async (req, res) => {
 // Get all events created by the authenticated user
 router.get("/my-events", isAuthenticated, async (req, res) => {
     try {
-        const organizerEmail = req.session.email;
-
-        const events = await Event.find({ organizerEmail });
+        const organizerEmail = req.session.email; // Use authenticated user's email
+        const events = await Event.find({ organizerEmail }); // Query events by email
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
+// Dynamic route for individual event details (must come after `/my-events`)
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const event = await Event.findById(id); // Match `_id` only here
+        if (!event) {
+            return res.status(404).json({ error: "Event not found" });
+        }
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 // Update an event (all fields except organizerEmail)
 router.put("/update/:id", isAuthenticated, async (req, res) => {
