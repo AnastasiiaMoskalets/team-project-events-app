@@ -43,9 +43,8 @@ function CreateEvent() {
         }
 
         try {
-            const response = await axios.post("/api/events/create", formData, {
-                withCredentials: true, // Include cookies for authentication
-                headers: { "Content-Type": "multipart/form-data" },
+            const response = await axios.post("http://localhost:5000/api/events/create", formData, {
+                withCredentials: true
             });
             setSuccessMessage("Event created successfully!");
             console.log("Event created:", response.data);
@@ -95,8 +94,8 @@ function CreateEvent() {
                     </div>
 
                     <div className="event-form-group title-price-container">
-                        <div style={{ flex: 2 }}>
-                            <label htmlFor="title">Event Title</label>
+                        <div className="input-container">
+                            <label className="form-label" htmlFor="title">Event Title</label>
                             <input
                                 type="text"
                                 id="title"
@@ -108,8 +107,8 @@ function CreateEvent() {
                                 required
                             />
                         </div>
-                        <div style={{ flex: 1 }}>
-                            <label htmlFor="price">Price ($)</label>
+                        <div className="input-container">
+                            <label className="form-label" htmlFor="price">Price ($)</label>
                             <input
                                 type="number"
                                 id="price"
@@ -124,8 +123,8 @@ function CreateEvent() {
                         </div>
                     </div>
 
-                    <div className="event-form-group">
-                        <label htmlFor="description">Description</label>
+                    <div className="event-form-group input-container create-event-input-container ">
+                        <label className="form-label" htmlFor="description">Description</label>
                         <textarea
                             id="description"
                             name="description"
@@ -139,8 +138,8 @@ function CreateEvent() {
                     </div>
 
                     <div className="date-time-container">
-                        <div>
-                            <label htmlFor="date">Event Date</label>
+                        <div className="input-container create-event-input-container">
+                            <label className="form-label" htmlFor="date">Event Date</label>
                             <input
                                 type="date"
                                 id="date"
@@ -151,8 +150,8 @@ function CreateEvent() {
                                 required
                             />
                         </div>
-                        <div>
-                            <label htmlFor="time">Event Time</label>
+                        <div className="input-container create-event-input-container">
+                            <label className="form-label" htmlFor="time">Event Time</label>
                             <input
                                 type="time"
                                 id="time"
@@ -165,9 +164,9 @@ function CreateEvent() {
                         </div>
                     </div>
 
-                    <div className="location-spots-container">
-                        <div>
-                            <label htmlFor="location">Location</label>
+                    <div className="location-spots-container ">
+                        <div className="input-container create-event-input-container">
+                            <label className="form-label" htmlFor="location">Location</label>
                             <input
                                 type="text"
                                 id="location"
@@ -179,8 +178,8 @@ function CreateEvent() {
                                 required
                             />
                         </div>
-                        <div>
-                            <label htmlFor="maxSpots">Maximum Spots</label>
+                        <div className="input-container create-event-input-container">
+                            <label className="form-label" htmlFor="maxSpots">Maximum Spots</label>
                             <input
                                 type="number"
                                 id="maxSpots"
@@ -190,7 +189,7 @@ function CreateEvent() {
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
-                                min="1"  // Забороняємо введення значень менших за 1
+                                min="1"  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 1
                             />
 
                         </div>

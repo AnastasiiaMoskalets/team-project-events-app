@@ -4,43 +4,41 @@ user-body * {
     justify-content: center;
 }
 
-user-body {
-    background-color: #FFFFFF; /* White background for the whole page */
+user-body { /* White background for the whole page */
     display: flex;
-    justify-content: center; /* Горизонтальне центрування */
-    align-items: center; /* Вертикальне центрування */
-    min-height: 100vh; /* Забезпечує повноекранну висоту */
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
 }
 .user-events-page {
-    width: 100vw; /* Полная ширина */
-    height: 100vh; /* Полная высота */
+    margin-top: 7rem;
+    
     display: flex;
-    justify-content: center; /* Центрируем содержимое по горизонтали */
-    align-items: center; /* Центрируем содержимое по вертикали */
-    background-color: white; /* Задний фон страницы */
+    justify-content: center; 
+    align-items: center; 
     margin: 0;
     padding: 0;
 }
 
-/* Контейнер для информации пользователя */
+/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 .user-info-container {
-    width: 100%; /* Заполняет всю ширину внешнего контейнера */
-    max-width: 75rem; /* Максимальная ширина */
+    width: 100%; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    max-width: 75rem; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
     margin: 0 auto;
     padding: 2rem;
     border-radius: 1.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     text-align: center;
-    background-color: #f1f1f4;
+    background-color: white;
 }
 
 
-    .user-info-container h1 { /* Припускаючи, що це заголовок імені */
-        margin-bottom: 1rem; /* Регулює відстань до кнопки */
+    .user-info-container h1 { /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
+        margin-bottom: 1rem; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
     }
 
     .user-info-container button {
-        margin-top: 0; /* Може допомогти уникнути зайвого відступу */
+        margin-top: 0; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
     }
 
 .user-image-container {
@@ -164,38 +162,39 @@ user-form {
 /* User Events Styles */
 .user-events-header {
     display: flex;
-    justify-content: space-between; /* Вирівнювання елементів */
+    justify-content: space-between; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
     align-items: center;
     margin-bottom: 1.5rem;
     width: 100%;
-    padding: 1rem 2rem; /* Відступи, схожі на відступи кнопки */
+    padding: 1rem 2rem; /* ВіпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 .user-account-header 
 {font-family: "Montserrat", sans-serif;
-margin-bottom: 0; /* Зменшуємо відступи для гармонійного вигляду */
+margin-bottom: 0; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 margin-top: 0;
-font-size: 1.5rem; /* Налаштовуємо розмір шрифту */
-font-weight: bold; /* Робимо текст жирнішим */
+font-size: 1.5rem; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+font-weight: bold; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 font-size: 2rem;
 }
 
 
 .user-events-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    padding: 0 2rem ;
+    width: 70rem;
+    display: flex; 
+    gap: 25px;
+    flex-wrap: wrap;
 }
 
 .user-events-header h1 {
-    margin: 0; /* Видалити зайві відступи */
-    font-size: 1.5rem; /* Розмір шрифту */
-    font-weight: bold; /* Жирний текст */
+    margin: 0; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    font-size: 1.5rem; /* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+    font-weight: bold; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 
 #user-update-image-button {
-    flex-shrink: 0; /* Забороняє кнопці стискатися */
-    margin-left: 1rem; /* Відступ для візуального розділення */
+    flex-shrink: 0; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    margin-left: 1rem; /* ВіпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
 .user-event-card:hover {
@@ -213,8 +212,8 @@ font-size: 2rem;
 }
 
 .user-events-header button {
-    flex-shrink: 0; /* Заборонити кнопці стискатися */
-    margin-left: auto; /* Додати автоматичний відступ для переміщення кнопки */
+    flex-shrink: 0; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    margin-left: auto; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
 .user-event-button {
@@ -239,9 +238,9 @@ font-size: 2rem;
 
 #user-root {
     display: flex;
-    justify-content: center; /* Горизонтальне центрування */
-    align-items: center; /* Вертикальне центрування */
-    height: 100%; /* Забезпечує вирівнювання */
-    width: 100%; /* Забезпечує, що ширина відповідає розміру вікна */
+    justify-content: center; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    align-items: center; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    height: 100%; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+    width: 100%; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
     height: 100%;
 }

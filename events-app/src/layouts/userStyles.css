@@ -3,6 +3,9 @@
 body * {
     font-family: "Montserrat", sans-serif;
 }
+.user-container{
+    margin-top: 7rem;
+}
 .info-container{
     background-color: white;
     border-radius: 1.5rem;

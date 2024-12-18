@@ -32,15 +32,12 @@ export const UserProvider = ({ children }) => {
                 profileImage: response.data.profileImage,
                 events:response.data.events
             });
-            setIsLoggedIn(true)
 
         } else {
-        setIsLoggedIn(false);
         setUserData(null);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
-      setIsLoggedIn(false);
       setUserData(null);
     } 
   };
@@ -52,7 +49,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, isLoggedIn, fetchUserData }}>
+    <UserContext.Provider value={{ userData, isLoggedIn, setIsLoggedIn, fetchUserData }}>
       {children}
     </UserContext.Provider>
   );

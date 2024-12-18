@@ -13,6 +13,7 @@ function UserProfile() {
         profileImage: "",
     });
     useEffect(() => {
+        fetchUserData()
         if (userData) {
             console.log("data setting")
             setFormData({

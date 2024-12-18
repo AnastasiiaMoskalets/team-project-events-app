@@ -1,0 +1,188 @@
+body{
+    background-color: #F4F4F6;
+}
+
+.events-container{
+    margin-top: 7rem;
+    width: 70rem;
+    display: flex; 
+    gap: 25px;
+    flex-wrap: wrap;
+}
+.event-container{
+    border-radius: 1rem;
+    max-width: calc(33.33% - 25px);
+    flex: 1 1 calc(33.33% - 25px);
+}
+    
+.event-image-container{
+    border-radius: 1rem 1rem 0 0;
+    display: flex;
+    justify-content: start;
+}
+.event-price{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    border-radius: 0.6rem;
+    margin: 0.7rem;
+    align-self: flex-start;
+    height: auto;
+    padding: 0.4rem;
+    background-color: white;
+}
+.event-container .event-description-container{
+    padding: 0.5rem;
+    border-radius: 0 0 1rem 1rem;
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+    
+}
+.event-container:hover {
+    transform: scale(1.015); /* Slightly increase size from the center */
+    box-shadow: 0 4px 10px rgba(120, 72, 244, 0.3); /* Apply a purple glow on hover */
+}
+.event-month{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    color: #7848F4;
+}
+.event-title{
+    text-align: left;
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.event-location{
+    text-align: left;
+    font-weight: 400;
+    font-family: "acumin-pro", sans-serif;
+    color: #959CA8;
+    font-size: 0.9rem;
+}
+.event-date-container{
+    margin-right: 1.5rem;
+    margin-left: 1rem;
+}
+.event-day{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+.event-image{
+    margin-top:7rem;
+    width: 85vw; 
+    height: 45vw;
+    border-radius: 1rem;
+    padding: 4.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.event-details-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85vw;
+    
+}
+.event-details-container *{
+    text-align: start;
+}
+.back-button *{
+    margin: 0;
+    padding: 0.7rem 0.5rem;
+    
+}
+.back-button{
+    display: flex;
+    flex-direction: row;
+    transition: all 0.3s ease-in-out;
+    max-width: 6.5rem;
+    border-radius: 0.3rem;
+    margin-bottom: 5rem;
+}
+.back-button:hover{
+    background-color: rgba(0, 0, 0, 0.2); /* Light semi-transparent background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    transform: scale(1.02); /* Slightly enlarge */
+}
+.event-details-container-left-2{
+    
+    padding: 1.5rem;
+    border-radius: 0.3rem;
+}
+.event-details-container-left-2 .event-title{
+    font-size: 2.8rem;
+}
+.event-details-container-right{
+    margin-top: 5rem;
+    background-color: white;
+    padding: 2rem 4rem;
+    border-radius: 0.5rem;
+}
+.date-time-text{
+    font-weight: 400;
+    font-family: "acumin-pro", sans-serif;
+    color: #959CA8;
+    font-size: 1.2rem;
+}
+.date-time{
+    font-size: 1.5rem;
+}
+.price-text{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 500;
+}
+.spots-text{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 500;
+}
+.details-tag{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.event-organizer-name{
+    font-weight: 400;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    
+}
+.event-location-icon{
+    margin-right: 0.5rem;
+    font-size: 1.3rem;
+}
+.event-details-container .event-location{
+    font-size: 1.3rem;
+}
+.event-details-container .event-description-container{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding-left: 5rem;
+    padding-right: rempx;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+}
+.description-title{
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+}
+.description-text{
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 300;
+    line-height: 2;
+    font-size: 1.2rem;
+}

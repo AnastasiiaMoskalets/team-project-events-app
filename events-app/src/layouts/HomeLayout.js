@@ -1,14 +1,13 @@
 import React from "react";
 import NavBar from "../Components/Navbar";
-import Events from "../pages/Events"
-import UserLayout from "./UserLayout";
+import "./homeStyles.css"
+import { Outlet } from "react-router-dom";
 
-function HomeLayout(){
+function HomeLayout({children}){
     return(
         <div id="main-home-container">
             <NavBar />
-            <p>Hi from home</p>
-            <Events />
+            <Outlet />
         </div>
 
     )

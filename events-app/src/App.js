@@ -9,16 +9,23 @@ import HomeLayout from "./layouts/HomeLayout";
 import UserEventsLayout from "./layouts/UserEventsLayout";
 import UserEvents from "./pages/UserEvents"; 
 import CreateEvent from "./pages/CreateEvent";
+import EventDetails from "./pages/EventDetails";
+import Events from "./pages/Events";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeLayout />} />
-        <Route path="/user" element={<UserLayout />} />
-        <Route path="/events" element={<UserEventsLayout/>} />
-        <Route path="/userEvent" element={<UserEvents />} />
-        <Route path="/createEvent" element={<CreateEvent />} />
+        <Route path="/" element={<HomeLayout />}>
+        <Route index element={<Events />} />
+          <Route path="events/:id" element={<EventDetails />} />
+        </Route>
+        <Route path="/user" element={<UserLayout />}/>
+        <Route path="/userEvents" element={<UserEventsLayout/>} >
+          <Route index element={<UserEvents />} />
+          <Route path="createEvent" element={<CreateEvent />} />
+        </Route>
+        
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
         {/* Routes under the /auth path */}
         <Route path="/auth" element={<AuthLayout />}>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../layouts/userEventsStyles.css";
+import { useNavigate } from 'react-router-dom';
+import Event from '../Components/Event';
 
 function UserEvents() {
     const [userData, setUserData] = useState({
@@ -8,9 +10,9 @@ function UserEvents() {
         events: []
     });
 
-    const [isCreatingEvent, setIsCreatingEvent] = useState(false);
     const [isLoading, setIsLoading] = useState(true);  // Loading state
     const [error, setError] = useState(null);  // Error state
+    const navigate = useNavigate()
 
     // Fetch user data on component mount
     useEffect(() => {
@@ -36,8 +38,7 @@ function UserEvents() {
     }, []);
 
     const handleCreateEventClick = () => {
-        setIsCreatingEvent(true);
-        // Later you can add the logic for creating an event, e.g., a form that appears.
+        navigate("/userEvents/createEvent")
     };
 
     if (isLoading) {
@@ -50,37 +51,28 @@ function UserEvents() {
 
     return (
         <div className="user-events-page">
-        <div className='user-info-container'>
-            {/* Заголовок сторінки */}
-            <div className='user-events-header'>
-                <h1 className='user-account-header'>{userData.username}'s Dashboard</h1>
-                <button
+            <div className='user-info-container'>
+                <div className='user-events-header'>
+                    <h1 className='user-account-header'>{userData.username}'s Dashboard</h1>
+                    <button
                     onClick={handleCreateEventClick}
                     id="user-update-image-button"
-                >
-                    Create Event
-                </button>
-            </div>
-
-            {/* Список подій */}
-            <div className='user-events-list'>
-                {userData.events.length === 0 ? (
-                    <p>You have no events yet. Create one to get started!</p>
-                ) : (
-                    userData.events.map((event, index) => (
-                        <div key={index} className="user-event-card">
-                            <div className="user-event-card-header">
-                                <h3>{event.title}</h3>
-                                <button className="user-event-button">RSVP</button>
-                            </div>
-                            <div className="user-event-card-content">
-                                <p>{event.date}</p>
-                                <p>{event.description}</p>
-                            </div>
-                        </div>
-                    ))
+                    >
+                        Create Event
+                    </button>
+                </div>
+                <div className='user-events-list'>
+                    {userData.events.length === 0 ? (
+                        <p>You have no events yet. Create one to get started!</p>
+                    ) : (
+                        userData.events.map(event => (
+                            <Event
+                            eventData={event}
+                            key={event._id}
+                            />
+                        ))
                 )}
-            </div>
+                </div>
             </div>
         </div>
     );

@@ -9,17 +9,16 @@ import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { userData, isLoggedIn } = useContext(UserContext);
+  const { userData, isLoggedIn, setIsLoggedIn} = useContext(UserContext);
 
   const logout = async () => {
     try{
-      const response = axios.get("http://localhost:5000/api/users/logout",{
+      const response = axios.post("http://localhost:5000/api/users/logout",{
         withCredentials: true
       })
-      if (response.status === 200){
+        setIsLoggedIn(false)
         console.log("res got from logout", response.status)
         navigate('/')
-      } 
     }catch(error){
       console.error("Error logging out:", error)
     }
@@ -38,7 +37,7 @@ function Navbar() {
           {isLoggedIn ? (
             <>
               <li>
-                <NavLink to="/events" className={({ isActive }) => (isActive ? "active" : "nav-link")}>
+                <NavLink to="/userEvents" className={({ isActive }) => (isActive ? "active" : "nav-link")}>
                   My events
                 </NavLink>
               </li>
