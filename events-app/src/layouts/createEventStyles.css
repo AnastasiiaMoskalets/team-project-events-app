@@ -51,9 +51,9 @@ event-h1 {
     transition: all 0.3s ease;
 }
 .event-profile-input:focus {
-    border-color: #7848F4; /* Change border color to purple */
-    box-shadow: 0 0 8px rgba(120, 72, 244, 0.3); /* Add a soft purple glow */
-    transform: scale(1.02); /* Slightly enlarge input field */
+    border-color: #7848F4; 
+    box-shadow: 0 0 8px rgba(120, 72, 244, 0.3); 
+    transform: scale(1.02); 
     outline: none; 
 }
 
@@ -202,39 +202,34 @@ event-form {
     }
 
 textarea.event-profile-input {
-    resize: none; /* Prevent resizing */
-    padding-left: 1.5rem; /* Add padding for alignment */
-    padding-right: 1.5rem; /* Add padding for alignment */
-    width: 100%; /* Ensure it spans the entire width of its container */
+    resize: none; 
+    padding-left: 1.5rem; 
+    padding-right: 1.5rem; 
+    width: 100%; 
 }
 
-/* Add spacing around the description field to match other fields */
 .event-form-group {
     margin-bottom: 1.5rem;
     width: 100%;
 }
 
-    /* Adjust the description field layout so that it's consistent with other fields */
     .event-form-group textarea {
-        margin-left: 0; /* No left margin */
-        margin-right: 0; /* No right margin */
+        margin-left: 0; 
+        margin-right: 0; 
     }
 
-/* Adjust the input fields for Location and Maximum Spots */
 .location-spots-container .event-profile-input {
-    padding-left: 0.8em; /* Remove excessive left padding */
-    padding-right: 0.8em; /* Same padding as other fields */
-    width: 100%; /* Ensure the inputs fill the container width */
+    padding-left: 0.8em; 
+    padding-right: 0.8em; 
+    width: 100%; 
 }
 
-/* Make sure the Location and Maximum Spots inputs are aligned left */
 .location-spots-container input {
-    text-align: left; /* Ensure text aligns to the left */
+    text-align: left; 
 }
 
-/* Adjust the Location and Maximum Spots fields to align with the others */
 .location-spots-container div {
-    flex: 1; /* Ensure they stretch evenly across the container */
+    flex: 1; 
 }
 
 .event-body{

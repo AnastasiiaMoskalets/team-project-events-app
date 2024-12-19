@@ -1,10 +1,10 @@
 user-body * {
     font-family: "Montserrat", sans-serif;
-    color: #131315; /* Text color adjusted to match dark text from the photo */
+    color: #131315; 
     justify-content: center;
 }
 
-user-body { /* White background for the whole page */
+user-body { 
     display: flex;
     justify-content: center; 
     align-items: center; 
@@ -20,10 +20,9 @@ user-body { /* White background for the whole page */
     padding: 0;
 }
 
-/* ��������� ��� ���������� ������������ */
 .user-info-container {
-    width: 100%; /* ��������� ��� ������ �������� ���������� */
-    max-width: 75rem; /* ������������ ������ */
+    width: 100%; 
+    max-width: 75rem; 
     margin: 0 auto;
     padding: 2rem;
     border-radius: 1.5rem;
@@ -33,12 +32,12 @@ user-body { /* White background for the whole page */
 }
 
 
-    .user-info-container h1 { /* �����������, �� �� ��������� ����� */
-        margin-bottom: 1rem; /* ������� ������� �� ������ */
+    .user-info-container h1 { 
+        margin-bottom: 1rem; 
     }
 
     .user-info-container button {
-        margin-top: 0; /* ���� ��������� �������� ������� ������� */
+        margin-top: 0; 
     }
 
 .user-image-container {
@@ -159,22 +158,21 @@ user-form {
     margin-left: 0;
 }
 
-/* User Events Styles */
 .user-events-header {
     display: flex;
-    justify-content: space-between; /* ����������� �������� */
+    justify-content: space-between; 
     align-items: center;
     margin-bottom: 1.5rem;
     width: 100%;
-    padding: 1rem 2rem; /* ³������, ���� �� ������� ������ */
+    padding: 1rem 2rem; 
 }
-.user-account-header 
-{font-family: "Montserrat", sans-serif;
-margin-bottom: 0; /* �������� ������� ��� ������������ ������� */
-margin-top: 0;
-font-size: 1.5rem; /* ����������� ����� ������ */
-font-weight: bold; /* ������ ����� �������� */
-font-size: 2rem;
+.user-account-header {
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 0; 
+    margin-top: 0;
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    font-size: 2rem;
 }
 
 
@@ -187,14 +185,14 @@ font-size: 2rem;
 }
 
 .user-events-header h1 {
-    margin: 0; /* �������� ���� ������� */
-    font-size: 1.5rem; /* ����� ������ */
-    font-weight: bold; /* ������ ����� */
+    margin: 0; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
 }
 
 #user-update-image-button {
-    flex-shrink: 0; /* ��������� ������ ���������� */
-    margin-left: 1rem; /* ³����� ��� ���������� ��������� */
+    flex-shrink: 0; 
+    margin-left: 1rem; 
 }
 
 .user-event-card:hover {
@@ -212,13 +210,13 @@ font-size: 2rem;
 }
 
 .user-events-header button {
-    flex-shrink: 0; /* ���������� ������ ���������� */
-    margin-left: auto; /* ������ ������������ ������ ��� ���������� ������ */
+    flex-shrink: 0; 
+    margin-left: auto; 
 }
 
 .user-event-button {
     color: white;
-    background-color: #7848F4; /* Main color for event button */
+    background-color: #7848F4; 
     border: 0;
     padding: 1.3rem 3rem;
     font-size: 1.1rem;
@@ -238,9 +236,9 @@ font-size: 2rem;
 
 #user-root {
     display: flex;
-    justify-content: center; /* ������������� ����������� */
-    align-items: center; /* ����������� ����������� */
-    height: 100%; /* ��������� ����������� */
-    width: 100%; /* ���������, �� ������ ������� ������ ���� */
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    width: 100%; 
     height: 100%;
 }
