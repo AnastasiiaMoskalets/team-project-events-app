@@ -11,7 +11,7 @@ const path = require('path');
 require("dotenv").config();
 
 const generateEmailTemplate = require('./emailTemplate');
-const DEFAULT_IMAGE = '/default.png'; // Define the default image path
+const DEFAULT_IMAGE = '/user-images/default.png'; // Define the default image path
 
 
 
@@ -172,7 +172,7 @@ router.get("/profile-data", async (req, res) => {
         }
 
         const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
-        const events = await Event.find({ organizerEmail: req.session.email });
+        const events = await Event.find({ organizerEmail: req.session.email }).sort({ createdAt: -1 });
         res.status(200).json({
             username: user.username,
             email: user.email,
@@ -213,27 +213,30 @@ router.put("/update-profile", async (req, res) => {
 
 
 
-// Route for updating profile image
 router.put("/update-image", upload.single("profileImage"), async (req, res) => {
     try {
         const { email } = req.body;  // Get email from the request body
         const user = await User.findOne({ email });  // Find the user by email
 
         if (!user) {
-            // Delete the uploaded file if user is not found
+            // Delete the uploaded file if the user is not found
             if (req.file) {
                 fs.unlinkSync(req.file.path); // Remove the newly uploaded file
             }
             return res.status(404).json({ error: "User not found" });
         }
-
+       
         // Check if the user already has an existing image and delete it (only if it's not the default)
-        if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
+        if (user.profileImage === DEFAULT_IMAGE) {
+            
+            console.log("Default image is set, skipping deletion");
+        } else {
             const oldImagePath = path.join(__dirname, '..', 'public', user.profileImage);
             if (fs.existsSync(oldImagePath)) {
-                fs.unlinkSync(oldImagePath); // Delete the old image file
+                fs.unlinkSync(oldImagePath); // Delete only custom images
             }
         }
+
 
         // Save the new profile image path (relative to public)
         user.profileImage = `/user-images/${req.file.filename}`;  // Correct path
@@ -255,6 +258,7 @@ router.put("/update-image", upload.single("profileImage"), async (req, res) => {
     }
 });
 
+
 router.put("/delete-image", async (req, res) => {
     try {
         const { email } = req.body;  // Get email from the request body
@@ -267,7 +271,8 @@ router.put("/delete-image", async (req, res) => {
         // Check if the user has a custom image and delete it
         if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
             const imagePath = path.join(__dirname, '..', 'public', user.profileImage);
-            if (fs.existsSync(imagePath)) {
+            // Verify that the file path is not the default image
+            if (fs.existsSync(imagePath) && !imagePath.endsWith(DEFAULT_IMAGE)) {
                 fs.unlinkSync(imagePath); // Delete the custom image file
             }
         }
@@ -284,9 +289,6 @@ router.put("/delete-image", async (req, res) => {
         res.status(500).json({ error: "Error deleting profile image" });
     }
 });
-
-
-
 
 
 module.exports = router;
