@@ -80,12 +80,13 @@ router.post("/create", isAuthenticated, upload.single("eventImage"), async (req,
 // Get all events (public route)
 router.get("/all", async (req, res) => {
     try {
-        const events = await Event.find();
+        const events = await Event.find().sort({ createdAt: -1 }); // Sort by createdAt (descending)
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 
 // Search events by title (or category-like filtering, public route)
@@ -95,24 +96,26 @@ router.get("/search", async (req, res) => {
     try {
         const events = await Event.find({
             title: { $regex: query, $options: "i" }, // Case-insensitive search
-        });
+        }).sort({ createdAt: -1 }); // Sort by createdAt (descending)
 
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Get all events created by the authenticated user
 router.get("/my-events", isAuthenticated, async (req, res) => {
     try {
         const organizerEmail = req.session.email; // Use authenticated user's email
-        const events = await Event.find({ organizerEmail }); // Query events by email
+        const events = await Event.find({ organizerEmail }).sort({ createdAt: -1 }); // Sort by createdAt (descending)
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Dynamic route for individual event details (must come after `/my-events`)
 router.get("/:id", async (req, res) => {
