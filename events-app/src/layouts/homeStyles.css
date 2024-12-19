@@ -11,9 +11,11 @@ body{
     flex-wrap: wrap;
 }
 .event-container{
+    box-sizing: border-box;
     border-radius: 1rem;
     max-width: calc(33.33% - 25px);
     flex: 1 1 calc(33.33% - 25px);
+    overflow: hidden;
 }
     
 .event-image-container{
@@ -218,3 +220,50 @@ body{
     color: white;
     font-size: 1.15rem;
 }
+.user-events-list .event-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .user-events-list .event-container:hover .event-overlay {
+    opacity: 1; /* Show overlay on hover */
+    pointer-events: auto;
+  }
+  
+  .event-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .delete-button {
+    background-color: #ff4d4d;
+  }
+  
+  .delete-button:hover {
+    background-color: #e63939;
+  }
+  
+  .update-button {
+    background-color: #4d94ff;
+  }
+  
+  .update-button:hover {
+    background-color: #2b7eff;
+  }
+  
