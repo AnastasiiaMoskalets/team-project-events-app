@@ -32,7 +32,11 @@ function EventDetails(){
     const monthIndex = eventDate.getMonth(); 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const dayOfMonth = eventDate.getDate();
-    const time = eventDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    const time = new Date(`1970-01-01T${eventData.time}Z`).toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    });
     const year = eventDate.getFullYear()
 
     

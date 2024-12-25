@@ -23,7 +23,7 @@ user-body {
 .user-info-container {
     width: 100%; 
     max-width: 75rem; 
-    margin: 0 auto;
+    margin-top:7rem;
     padding: 2rem;
     border-radius: 1.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);

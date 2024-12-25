@@ -1,82 +1,111 @@
-import React, { useState , useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import "../layouts/createEventStyles.css";
 import UserContext from "../UserContext";
 
-function CreateEvent() {
-    const [eventData, setEventData] = useState({
-        title: "",
-        description: "",
-        date: "",
-        time: "",
-        location: "",
-        maxSpots: "",
-        price: "",
-    });
+function UpdateEvent() {
+    const { id } = useParams();
+    const initialEventData = {
+        title :"",
+        description:"",
+        date:"",
+        time:"",
+        location:"",
+        maxSpots:"",
+        price:""
+    }
     const {fetchUserData} = useContext(UserContext)
-    const [eventImage, setEventImage] = useState(null);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState(initialEventData);
+    const [newImage, setNewImage] = useState(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
+    const fetchEventData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/events/${id}`, {
+                withCredentials: true
+            })
+            if (response.status === 200) {
+                console.log("setting event data")
+                console.log(response.data)
+                setFormData({
+                    title: response.data.title,
+                    description: response.data.description,
+                    date: response.data.date ? response.data.date.split('T')[0] : "",
+                    time:response.data.time,
+                    location: response.data.location,
+                    maxSpots: response.data.maxSpots,
+                    price: response.data.price
+                });
+    
+            } else {
+            setFormData(null);
+          }
+        } catch (error) {
+          console.error("Error fetching event data:", error);
+          setFormData(null);
+        } 
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEventData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
 
+    };  
+    useEffect(() => {
+        fetchEventData()
+    }, []);
     const handleImageChange = (e) => {
-        setEventImage(e.target.files[0]);
+        setNewImage(e.target.files[0]);
     };
-
-    const handleSubmit = async (e) => {
+    const handleUpdateEvent = async (e) => {
         e.preventDefault();
-        setSuccessMessage("");
-        setErrorMessage("");
-
-        const formData = new FormData();
-        Object.keys(eventData).forEach((key) => {
-            formData.append(key, eventData[key]);
-        });
-        if (eventImage) {
-            formData.append("eventImage", eventImage);
-        }
-
+        
         try {
-            const response = await axios.post("http://localhost:5000/api/events/create", formData, {
+            if (newImage) {
+                const formData2 = new FormData();
+                formData2.append("eventImage", newImage);  // Append the image to FormData
+    
+                const image_response = await axios.put(
+                    `http://localhost:5000/api/events/update-image/${id}`,
+                    formData2,  // Send only the image as FormData
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",  // Ensure correct content type for file upload
+                        },
+                        withCredentials: true,
+                    }
+                );
+    
+                if (image_response.status === 200) {
+                    console.log("Image updated successfully");
+                    setSuccessMessage("Image updated successfully");
+                }
+            }
+            
+            const response = await axios.put(`http://localhost:5000/api/events/update/${id}`, formData,  {
                 withCredentials: true
             });
-            setSuccessMessage("Event created successfully!");
-            fetchUserData();
-            console.log("Event created:", response.data);
-            setEventData({
-                title: "",
-                description: "",
-                date: "",
-                time: "",
-                location: "",
-                maxSpots: "",
-                price: "",
-            });
-            setEventImage(null);
+            if (response.status === 200) {
+                navigate("/userEvents");
+                fetchUserData();
+                console.log("Event updated succesfuly")
+                setSuccessMessage("Event updated succesfuly")
+            }
         } catch (error) {
-            setErrorMessage(
-                error.response?.data?.error || "Failed to create event. Please try again."
-            );
-            console.error("Error creating event:", error);
+            console.error("Error updating event:", error);
+            setErrorMessage("Error updating event:", error)
         }
     };
-
-    return (
+    return(
         <div className="event-body">
             <div className="event-info-container">
-                <h1 className="event-h1">Create an Event</h1>
-                <form onSubmit={handleSubmit} className="event-form">
+                <h1 className="event-h1">Update an Event</h1>
+                <form onSubmit={handleUpdateEvent} className="event-form">
                     <div className="event-form-group">
                         <div className="add-image-container">
                             <div className="add-image-text">
-                                {eventImage ? eventImage.name : "No image selected"}
+                                {newImage ? newImage.name : "No image selected"}
                             </div>
                             <button
                                 type="button"
@@ -103,7 +132,7 @@ function CreateEvent() {
                                 id="title"
                                 name="title"
                                 placeholder="Enter event title"
-                                value={eventData.title}
+                                value={formData.title}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
@@ -116,7 +145,7 @@ function CreateEvent() {
                                 id="price"
                                 name="price"
                                 placeholder="Enter price"
-                                value={eventData.price}
+                                value={formData.price}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
@@ -131,7 +160,7 @@ function CreateEvent() {
                             id="description"
                             name="description"
                             placeholder="Enter event description"
-                            value={eventData.description}
+                            value={formData.description}
                             onChange={handleChange}
                             className="event-profile-input"
                             rows="4"
@@ -146,7 +175,7 @@ function CreateEvent() {
                                 type="date"
                                 id="date"
                                 name="date"
-                                value={eventData.date}
+                                value={formData.date}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
@@ -158,7 +187,7 @@ function CreateEvent() {
                                 type="time"
                                 id="time"
                                 name="time"
-                                value={eventData.time}
+                                value={formData.time}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
@@ -174,7 +203,7 @@ function CreateEvent() {
                                 id="location"
                                 name="location"
                                 placeholder="Enter event location"
-                                value={eventData.location}
+                                value={formData.location}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
@@ -187,11 +216,11 @@ function CreateEvent() {
                                 id="maxSpots"
                                 name="maxSpots"
                                 placeholder="Enter maximum spots"
-                                value={eventData.maxSpots}
+                                value={formData.maxSpots}
                                 onChange={handleChange}
                                 className="event-profile-input"
                                 required
-                                min="1" 
+                                min="1"  
                             />
 
                         </div>
@@ -201,12 +230,12 @@ function CreateEvent() {
                     {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
                     <button type="submit" className="event-button">
-                        Create Event
+                        Update Event
                     </button>
                 </form>
             </div>
         </div>
-    );
+    )
 }
 
-export default CreateEvent;
+export default UpdateEvent;

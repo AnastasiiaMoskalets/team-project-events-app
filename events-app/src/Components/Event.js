@@ -28,8 +28,8 @@ function Event({ eventData, onClick, onDelete, onUpdate, showButtons }){
             {showButtons && (
            isHovered && (
             <div className="event-overlay">
-              <button onClick={onDelete}>Delete</button>
-              <button onClick={onUpdate}>Update</button>
+              <button className="event-button" onClick={onDelete}>Delete</button>
+              <button className="event-button" onClick={onUpdate}>Update</button> 
             </div>
           )
         )}

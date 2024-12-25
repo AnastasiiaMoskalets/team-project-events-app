@@ -13,6 +13,10 @@ function UserEvents() {
     const handleCreateEventClick = () => {
         navigate("/userEvents/createEvent")
     };
+    const handleEventUpdate = (id) => {
+        navigate(`/userEvents/updateEvent/${id}`);
+    };
+    
     const handleEventDelete = async (_id) =>{
         try{
             const response = await axios.delete(`http://localhost:5000/api/events/delete/${_id}`, {
@@ -48,6 +52,7 @@ function UserEvents() {
                             eventData={event}
                             key={event._id}
                             onDelete={() => handleEventDelete(event._id)}
+                            onUpdate={() => handleEventUpdate(event._id)}
                             showButtons={true}
                             />
                         ))

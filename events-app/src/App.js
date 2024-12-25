@@ -11,6 +11,7 @@ import UserEvents from "./pages/UserEvents";
 import CreateEvent from "./pages/CreateEvent";
 import EventDetails from "./pages/EventDetails";
 import Events from "./pages/Events";
+import UpdateEvent from "./pages/UpdateEvent";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/userEvents" element={<UserEventsLayout/>} >
           <Route index element={<UserEvents />} />
           <Route path="createEvent" element={<CreateEvent />} />
+          <Route path="updateEvent/:id" element={<UpdateEvent /> }/>
         </Route>
         
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}

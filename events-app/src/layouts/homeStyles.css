@@ -16,6 +16,8 @@ body{
     max-width: calc(33.33% - 25px);
     flex: 1 1 calc(33.33% - 25px);
     overflow: hidden;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
     
 .event-image-container{
@@ -62,6 +64,7 @@ body{
     font-style: normal;
 }
 .event-location{
+    min-height: 2.5rem;
     text-align: left;
     font-weight: 400;
     font-family: "acumin-pro", sans-serif;
@@ -204,11 +207,15 @@ body{
     width:30%;
     background:none;
     border-bottom: 2px solid #7848f4;
+    transition: 0.3s ease-in-out;
 }
 .search-input::placeholder{
     color: white;
 }
-
+.search-input:focus{
+    scale: 1.05;
+    outline: none;
+}
 .search-button{
     border-radius: 0.3rem;
     background-color:#7848F4;
@@ -242,7 +249,8 @@ body{
   }
   
   .event-button {
-    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    padding: 0.1rem 0.4rem;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
@@ -251,19 +259,4 @@ body{
     transition: background-color 0.2s ease;
   }
   
-  .delete-button {
-    background-color: #ff4d4d;
-  }
-  
-  .delete-button:hover {
-    background-color: #e63939;
-  }
-  
-  .update-button {
-    background-color: #4d94ff;
-  }
-  
-  .update-button:hover {
-    background-color: #2b7eff;
-  }
   
