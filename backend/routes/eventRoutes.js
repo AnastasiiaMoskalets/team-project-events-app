@@ -5,6 +5,7 @@ const isAuthenticated = require("../middleware/auth"); // Authentication middlew
 const fs = require('fs');
 const multer = require("multer");
 const path = require('path');
+const User = require("../models/User");
 
 const DEFAULT_IMAGE = "/user-images/eventDefault.png";
 
@@ -154,6 +155,20 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
                 event[key] = updates[key];
             }
         });
+        if (updates.maxSpots !== undefined) {
+            const maxSpots = updates.maxSpots;
+
+            // Ensure `availableSpots` is adjusted based on new `maxSpots` value
+            const bookedUsersCount = event.bookedUsers.length;
+            if (maxSpots < bookedUsersCount) {
+                return res.status(400).json({
+                    error: "Max spots cannot be less than the number of currently booked users",
+                });
+            }
+
+            // Update `availableSpots`
+            event.availableSpots = maxSpots - bookedUsersCount;
+        }
 
         await event.save();
 
@@ -259,5 +274,80 @@ router.put("/reset-image/:id", isAuthenticated, async (req, res) => {
         res.status(500).json({ error: "Error resetting event image" });
     }
 });
+
+
+
+
+
+
+
+
+
+router.post("/book/:eventId", async (req, res) => {
+    const { eventId } = req.params;
+    const userEmail = req.session.email; // Assuming `req.user` contains the user's authenticated email
+
+    try {
+        const event = await Event.findById(eventId);
+        if (!event) return res.status(404).json({ error: "Event not found" });
+
+        if (event.availablePlaces <= 0) {
+            return res.status(400).json({ error: "No available places for this event" });
+        }
+
+        const user = await User.findOne({ email: userEmail });
+        if (!user) return res.status(404).json({ error: "User not found" });
+
+        // Check if user already booked the event
+        if (event.bookedUsers.includes(user.email)) {
+            return res.status(400).json({ error: "You have already booked this event" });
+        }
+
+        // Update event and user
+        event.availablePlaces -= 1;
+        event.bookedUsers.push(user.email);
+        await event.save();
+
+        user.bookedEvents.push(eventId);
+        await user.save();
+
+        res.json({ message: "Event booked successfully", event });
+    } catch (err) {
+        console.error("Error booking event:", err); // Logs detailed error
+        res.status(500).json({ error: "Server error", details: err.message });
+    }
+});
+
+
+router.post("/cancel/:eventId", async (req, res) => {
+    const { eventId } = req.params;
+    const userEmail = req.session.email;
+
+    try {
+        const event = await Event.findById(eventId);
+        if (!event) return res.status(404).json({ error: "Event not found" });
+
+        const user = await User.findOne({ email: userEmail });
+        if (!user) return res.status(404).json({ error: "User not found" });
+
+        if (!event.bookedUsers.includes(user.email)) {
+            return res.status(400).json({ error: "You have not booked this event" });
+        }
+
+        // Update event and user
+        event.availablePlaces += 1;
+        event.bookedUsers = event.bookedUsers.filter(email => email !== userEmail);
+        await event.save();
+
+        user.bookedEvents = user.bookedEvents.filter((id) => id.toString() !== eventId);
+        await user.save();
+
+        res.json({ message: "Booking canceled successfully", event });
+    } catch (err) {
+        console.error("Error canceling booking:", err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
 
 module.exports = router;
