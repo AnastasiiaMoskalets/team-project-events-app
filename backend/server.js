@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const cors = require('cors');
 const path = require('path');
+const bookingRoutes = require('./routes/bookingRoutes');
+
 
 const app = express();
 
@@ -46,7 +48,7 @@ connectDB();
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/user-images', express.static(path.join(__dirname, 'public/user-images')));// Serve files from backend/routes/user-images
-
+app.use('/api/bookings', bookingRoutes);
 
 // Catch all errors
 app.use((err, req, res, next) => {

@@ -5,6 +5,7 @@ const isAuthenticated = require("../middleware/auth"); // Authentication middlew
 const fs = require('fs');
 const multer = require("multer");
 const path = require('path');
+const User = require("../models/User");
 
 const DEFAULT_IMAGE = "/user-images/eventDefault.png";
 
@@ -154,6 +155,20 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
                 event[key] = updates[key];
             }
         });
+        if (updates.maxSpots !== undefined) {
+            const maxSpots = updates.maxSpots;
+
+            // Ensure `availableSpots` is adjusted based on new `maxSpots` value
+            const bookedUsersCount = event.bookedUsers.length;
+            if (maxSpots < bookedUsersCount) {
+                return res.status(400).json({
+                    error: "Max spots cannot be less than the number of currently booked users",
+                });
+            }
+
+            // Update `availableSpots`
+            event.availableSpots = maxSpots - bookedUsersCount;
+        }
 
         await event.save();
 
