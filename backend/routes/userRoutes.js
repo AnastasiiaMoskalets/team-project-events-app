@@ -178,12 +178,14 @@ router.get("/profile-data", async (req, res) => {
             email: user.email,
             profileImage: fullImageUrl,
             events,
-            bookedEvents: user.bookedEvents
         });
     } catch (error) {
         res.status(500).json({ error: "Error retrieving user data" });
     }
 });
+
+
+
 
 
 
