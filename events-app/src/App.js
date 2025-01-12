@@ -12,6 +12,8 @@ import CreateEvent from "./pages/CreateEvent";
 import EventDetails from "./pages/EventDetails";
 import Events from "./pages/Events";
 import UpdateEvent from "./pages/UpdateEvent";
+import BookEvent from "./pages/BookEvent";
+
 
 export default function App() {
   return (
@@ -27,7 +29,7 @@ export default function App() {
           <Route path="createEvent" element={<CreateEvent />} />
           <Route path="updateEvent/:id" element={<UpdateEvent /> }/>
         </Route>
-        
+        <Route path="/bookEvent" element={<BookEvent />} />
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
         {/* Routes under the /auth path */}
         <Route path="/auth" element={<AuthLayout />}>

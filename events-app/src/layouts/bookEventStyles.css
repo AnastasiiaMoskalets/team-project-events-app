@@ -1,0 +1,155 @@
+.booking-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.form-container {
+    flex: 0 0 60%;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    max-width: 150%;
+    width: 60%;
+    margin-left: 2rem;
+    margin-top: -1rem;
+}
+
+.summary-container {
+    flex: 0 0 35%;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    margin-left: 63rem;
+    width: 60%;
+    height: 50rem;
+    min-height: 38rem;
+    margin-top: -5rem;
+}
+
+.booking-h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #131315;
+    margin-bottom: 1.5rem;
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #131315;
+    margin-bottom: 1.5rem;
+}
+
+.booking-form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: -35rem;
+    align-items: flex-start;
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #131315;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.booking-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 0.1em solid #ccc;
+    border-radius: 0.5em;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.business-details-select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 0.1em solid #ccc;
+    border-radius: 0.5em;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.booking-button {
+    width: 40%;
+    max-width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #7848F4;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-left: -35rem;
+}
+
+    .booking-button:hover {
+        background-color: #5a2fcf;
+        transform: scale(1.05);
+    }
+
+.summary-details {
+    margin-bottom: 1rem;
+}
+
+    .summary-details p {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #131315;
+    }
+
+.summary-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7848F4;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.calendar-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #7848F4;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+    .calendar-button:hover {
+        background-color: #5a2fcf;
+        transform: scale(1.05);
+    }
+
+.summary-location,
+.summary-hours {
+    font-size: 0.9rem;
+    color: #131315;
+    margin-top: 0.5rem;
+}
+
+    .summary-hours span {
+        display: block;
+        margin-top: 0.2rem;
+    }
