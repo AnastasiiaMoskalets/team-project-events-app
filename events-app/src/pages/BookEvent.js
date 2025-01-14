@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../layouts/bookEventStyles.css";
+import axios from "axios";
 
 function BookEvent() {
     const [bookingData, setBookingData] = useState({
@@ -7,12 +8,30 @@ function BookEvent() {
         lastName: "",
         email: "",
         phoneNumber: "",
-        businessDetails: "Individual",
     });
 
-    const [price, setPrice] = useState(100); // Example price for the event
-    const fees = 7.5;
-    const total = price + fees;
+    const [eventDetails, setEventDetails] = useState(null); // Store event details
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const eventId = "6782ddad64f87618b2de85f5"; // Replace with actual event ID, or pass dynamically
+
+    useEffect(() => {
+        // Fetch event details when the component mounts
+        const fetchEventDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/events/${ eventId }`);
+                setEventDetails(response.data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching event details:", err.response?.data , err.message);
+                setError("Failed to load event details. Please try again.");
+                setLoading(false);
+            }
+        };
+
+        fetchEventDetails();
+    }, [eventId]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,12 +41,38 @@ function BookEvent() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Event booked successfully!");
-        console.log("Booking data:", bookingData);
+
+        try {
+            const response = await axios.post(
+                "http://localhost:5000/api/bookings/book",
+                {
+                    eventId,
+                    firstName: bookingData.firstName,
+                    lastName: bookingData.lastName,
+                    phoneNumber: bookingData.phoneNumber,
+                    contactEmail: bookingData.email,
+                },
+                { withCredentials: true }
+            );
+
+            if (response.status === 201) {
+                alert("Event booked successfully!");
+                console.log("Booking successful:", response.data.booking);
+            } else {
+                alert("Error booking event. Please try again.");
+            }
+        } catch (err) {
+            console.error("Error submitting booking:", err.response?.data , err.message);
+            alert(
+                err.response?.data?.error || "An unexpected error occurred. Please try again."
+            );
+        }
     };
 
+    if (loading) return <p>Loading event details...</p>;
+    if (error) return <p>{error}</p>;
     return (
         <div className="booking-body">
             <div className="form-container">
@@ -91,17 +136,15 @@ function BookEvent() {
             <div className="summary-container">
                 <h2 className="summary-title">Ticket Summary</h2>
                 <div className="summary-details">
-                    <p>2 General Admission</p>
-                    <p>Price: $<span>{price}</span></p>
-                    <p>Fees: $<span>{fees}</span></p>
-                    <p className="summary-total">Total: $<span>{total}</span></p>
+                    <p>{eventDetails.title}</p>
+                    <p>Price: ${eventDetails.price}</p>
+                    <p className="summary-total">Total: ${eventDetails.price}</p>
                 </div>
 
                 <h2 className="summary-title">Location</h2>
-                <p>Balai Kartini, Nusa Indah Theatre, Jl. Gatot Subroto No. 37, Kuningan, Jakarta Selatan</p>
+                <p>{eventDetails.location}</p>
                 <h2 className="summary-title">Hours</h2>
-                <p>Weekday Hours: 7 PM - 10 PM</p>
-                <p>Sunday Hours: 10 AM - 3 PM</p>
+                <p>{eventDetails.time}</p>
                 <button className="calendar-button">Add to Calendar</button>
             </div>
         </div>

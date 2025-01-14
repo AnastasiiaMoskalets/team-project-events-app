@@ -1,30 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 .booking-body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 2rem;
     background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
 }
 
-.form-container {
-    flex: 0 0 60%;
-    padding: 2rem;
-    background-color: #FFFFFF;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    max-width: 150%;
-    width: 60%;
-    margin-left: 2rem;
-    margin-top: -1rem;
-}
+    .booking-body.form-container {
+        flex: 0 0 60%;
+        padding: 2rem;
+        background-color: #FFFFFF;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        max-width: 150%;
+        width: 60%;
+        margin-left: 2rem;
+        margin-top: -1rem;
+    }
 
 .summary-container {
     flex: 0 0 35%;
     padding: 2rem;
-    background-color: #FFFFFF;
+    background-color: #F9F9F9;
     border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     max-width: 80%;
     margin-left: 63rem;
     width: 60%;
@@ -51,7 +51,6 @@
     margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    margin-left: -35rem;
     align-items: flex-start;
 }
 
@@ -84,7 +83,7 @@
 }
 
 .booking-button {
-    width: 40%;
+    width: 50%;
     max-width: 100%;
     padding: 1rem;
     font-size: 1rem;
@@ -96,7 +95,6 @@
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
-    margin-left: -35rem;
 }
 
     .booking-button:hover {
@@ -123,7 +121,8 @@
 }
 
 .calendar-button {
-    width: 100%;
+    width: 45%;
+    max-width: 100%;
     padding: 1rem;
     font-size: 1rem;
     color: white;
@@ -133,6 +132,7 @@
     cursor: pointer;
     font-weight: bold;
     text-align: center;
+    margin-left: 8rem;
     margin-top: 1rem;
     transition: all 0.3s ease;
 }
