@@ -4,7 +4,25 @@ const Event = require("../models/Event");
 const User = require("../models/User");
 const isAuthenticated = require("../middleware/auth");
 const router = express.Router();
+const nodemailer = require("nodemailer");
+const fs = require('fs');
+const multer = require("multer");
+const path = require('path');
+require("dotenv").config();
 
+const generateBookingEmailTemplate = require('./emailTemplateBooking');
+
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
 // Create a booking
 router.post("/book", isAuthenticated, async (req, res) => {
     const { eventId, firstName, lastName, phoneNumber, contactEmail } = req.body;
@@ -45,6 +63,48 @@ router.post("/book", isAuthenticated, async (req, res) => {
         event.availableSpots -= 1;
         await event.save();
 
+        let formattedDateTime;
+        try {
+            const eventDate = event.date.toISOString().split('T')[0]; // Extract the date part in YYYY-MM-DD format
+            formattedDateTime = new Date(`${eventDate}T${event.time}:00`).toLocaleString('en-US', {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            });
+        } catch (error) {
+            console.error("Error formatting date and time:", error);
+            formattedDateTime = "Invalid date/time";
+        }
+
+
+
+        const personalizedHtml = generateBookingEmailTemplate(booking.firstName, event.title, formattedDateTime, event.location);
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: contactEmail,
+            subject: 'Registration Confirmation',
+            html: personalizedHtml,
+            attachments: [
+                {
+                    filename: 'logo512.png',
+                    path: path.join(__dirname, 'logo512.png'),
+                    cid: 'logoImage'  // Content-ID for referencing in HTML
+                },
+                {
+                    filename: 'events_app.jpg',
+                    path: path.join(__dirname, 'events_app.jpg'),
+                    cid: 'heroImage'  // Content-ID for referencing in HTML
+                }
+            ]
+        };
+
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log("Error sending email:", error);
+            } else {
+                console.log("Email sent:", info.response);
+            }
+        });
         res.status(201).json({ message: "Booking successful", booking });
     } catch (error) {
         console.error(error);
