@@ -4,33 +4,32 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 2rem;
-    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    background-color: #F9F9F9;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
 }
 
-    .booking-body.form-container {
-        flex: 0 0 60%;
-        padding: 2rem;
-        background-color: #FFFFFF;
-        border-radius: 1rem;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-        max-width: 150%;
-        width: 60%;
-        margin-left: 2rem;
-        margin-top: -1rem;
+    .booking-body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
     }
 
-.summary-container {
-    flex: 0 0 35%;
-    padding: 2rem;
+.forms-container {
     background-color: #F9F9F9;
     border-radius: 1rem;
-    max-width: 80%;
-    margin-left: 63rem;
-    width: 60%;
-    height: 50rem;
-    min-height: 38rem;
-    margin-top: -5rem;
+    max-width: 100%; /* Забезпечує коректну ширину */
+    width: 50rem;
+    margin-left: 14rem;
+}
+
+.summary-container {
+    background-color: #F4F4F6;
+    width: 25%;
+    height: 48rem;
+    margin-top: -4rem;
+    margin-left: 1rem;
 }
 
 .booking-h1 {
@@ -38,6 +37,8 @@
     font-weight: bold;
     color: #131315;
     margin-bottom: 1.5rem;
+    margin-left: 3rem;
+    padding: 2rem;
 }
 
 .summary-title {
@@ -45,6 +46,13 @@
     font-weight: bold;
     color: #131315;
     margin-bottom: 1.5rem;
+    text-align: start;
+    margin-left: 2rem;
+    margin-top: 0;
+}
+
+.bookings-form {
+    background-color: #F9F9F9;
 }
 
 .booking-form-group {
@@ -52,14 +60,16 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-left: -15rem; /* Прибрано зайвий відступ */
+    width: 100%; /* Гарантує, що елемент не виходить за межі */
+    max-width: 25rem;
 }
 
-.form-label {
+.forms-label {
     font-size: 1rem;
     font-weight: bold;
     color: #131315;
     margin-bottom: 0.5rem;
-    text-align: left;
 }
 
 .booking-input {
@@ -72,19 +82,10 @@
     box-sizing: border-box;
 }
 
-.business-details-select {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 0.1em solid #ccc;
-    border-radius: 0.5em;
-    background-color: #FFFFFF;
-    box-sizing: border-box;
-}
 
 .booking-button {
-    width: 50%;
-    max-width: 100%;
+    width: 100%; /* Виправлено ширину, щоб уникнути виходу за межі */
+    max-width: 30%;
     padding: 1rem;
     font-size: 1rem;
     color: white;
@@ -95,6 +96,7 @@
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
+    margin-left: -24.7rem; /* Прибрано зайвий відступ */
 }
 
     .booking-button:hover {
@@ -104,52 +106,38 @@
 
 .summary-details {
     margin-bottom: 1rem;
+    margin-left: 2rem;
+    font-weight: normal; /* Додаємо це правило */
+    margin-top: -0.2rem;
 }
 
     .summary-details p {
+        text-align: start;
         font-size: 1rem;
         margin-bottom: 0.5rem;
         color: #131315;
+        font-weight: normal; /* Додаємо це правило */
+        margin-top: 0;
     }
 
-.summary-total {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #7848F4;
-    text-align: right;
-    margin-top: 1rem;
-}
-
-.calendar-button {
-    width: 45%;
-    max-width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    color: white;
-    background-color: #7848F4;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 8rem;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-}
-
-    .calendar-button:hover {
-        background-color: #5a2fcf;
-        transform: scale(1.05);
+    .summary-location,
+    .summary-hours {
+        font-size: 0.9rem;
+        color: #131315;
+        margin-top: 0.5rem;
     }
-
-.summary-location,
-.summary-hours {
-    font-size: 0.9rem;
-    color: #131315;
-    margin-top: 0.5rem;
-}
 
     .summary-hours span {
         display: block;
         margin-top: 0.2rem;
     }
+
+.booking-event-image {
+    width: 100%; /* Забезпечує правильне масштабування */
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0; /* Прибрано зайві відступи */
+    padding: 0;
+    margin-top: 1.5rem;
+}

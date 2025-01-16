@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../layouts/bookEventStyles.css";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 
 function BookEvent() {
     const [bookingData, setBookingData] = useState({
@@ -10,21 +12,20 @@ function BookEvent() {
         phoneNumber: "",
     });
 
-    const [eventDetails, setEventDetails] = useState(null); // Store event details
+    const [eventDetails, setEventDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const eventId = "6782ddad64f87618b2de85f5"; // Replace with actual event ID, or pass dynamically
+    const eventId = "6782ddad64f87618b2de85f5";
 
     useEffect(() => {
-        // Fetch event details when the component mounts
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/events/${ eventId }`);
+                const response = await axios.get(`http://localhost:5000/api/events/${eventId}`);
                 setEventDetails(response.data);
                 setLoading(false);
             } catch (err) {
-                console.error("Error fetching event details:", err.response?.data , err.message);
+                console.error("Error fetching event details:", err.response?.data, err.message);
                 setError("Failed to load event details. Please try again.");
                 setLoading(false);
             }
@@ -64,22 +65,25 @@ function BookEvent() {
                 alert("Error booking event. Please try again.");
             }
         } catch (err) {
-            console.error("Error submitting booking:", err.response?.data , err.message);
-            alert(
-                err.response?.data?.error || "An unexpected error occurred. Please try again."
-            );
+            console.error("Error submitting booking:", err.response?.data, err.message);
+            alert(err.response?.data?.error || "An unexpected error occurred. Please try again.");
         }
     };
 
     if (loading) return <p>Loading event details...</p>;
     if (error) return <p>{error}</p>;
+
+    const imageUrl = eventDetails?.eventImage
+        ? `http://localhost:5000${eventDetails.eventImage}`
+        : "http://localhost:5000/user-images/eventDefault.png"; // Fallback to default image
+
     return (
         <div className="booking-body">
-            <div className="form-container">
+            <div className="forms-container">
                 <h1 className="booking-h1">Personal Information</h1>
-                <form onSubmit={handleSubmit} className="booking-form">
+                <form onSubmit={handleSubmit} className="bookings-form">
                     <div className="booking-form-group">
-                        <label htmlFor="firstName" className="form-label">First Name</label>
+                        <label htmlFor="firstName" className="forms-label">First Name</label>
                         <input
                             type="text"
                             id="firstName"
@@ -92,7 +96,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="lastName" className="form-label">Last Name</label>
+                        <label htmlFor="lastName" className="forms-label">Last Name</label>
                         <input
                             type="text"
                             id="lastName"
@@ -105,7 +109,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="email" className="form-label">Your Email</label>
+                        <label htmlFor="email" className="forms-label">Your Email</label>
                         <input
                             type="email"
                             id="email"
@@ -118,7 +122,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                        <label htmlFor="phoneNumber" className="forms-label">Phone Number</label>
                         <input
                             type="tel"
                             id="phoneNumber"
@@ -130,22 +134,30 @@ function BookEvent() {
                             required
                         />
                     </div>
-                    <button type="submit" className="booking-button">Continue</button>
+                    <button type="submit" className="booking-button">Book an Event</button>
                 </form>
             </div>
             <div className="summary-container">
-                <h2 className="summary-title">Ticket Summary</h2>
+                <img src={imageUrl} alt="Event" className="booking-event-image" />
+                <h2 className="summary-title">
+                    <FontAwesomeIcon icon={faLocationDot} /> Event Summary
+                </h2>
                 <div className="summary-details">
                     <p>{eventDetails.title}</p>
                     <p>Price: ${eventDetails.price}</p>
-                    <p className="summary-total">Total: ${eventDetails.price}</p>
                 </div>
-
-                <h2 className="summary-title">Location</h2>
-                <p>{eventDetails.location}</p>
-                <h2 className="summary-title">Hours</h2>
-                <p>{eventDetails.time}</p>
-                <button className="calendar-button">Add to Calendar</button>
+                <h2 className="summary-title">
+                    <FontAwesomeIcon icon={faLocationDot} /> Location
+                </h2>
+                <div className="summary-details">
+                    <p>{eventDetails.location}</p>
+                </div>
+                <h2 className="summary-title">
+                    <FontAwesomeIcon icon={faClock} /> Hours
+                </h2>
+                <div className="summary-details">
+                    <p>{eventDetails.time}</p>
+                </div>
             </div>
         </div>
     );
