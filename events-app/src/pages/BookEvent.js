@@ -51,7 +51,7 @@ function BookEvent() {
             const response = await axios.post(
                 "http://localhost:5000/api/bookings/book",
                 {
-                    id,
+                    eventId: id,
                     firstName: bookingData.firstName,
                     lastName: bookingData.lastName,
                     phoneNumber: bookingData.phoneNumber,
