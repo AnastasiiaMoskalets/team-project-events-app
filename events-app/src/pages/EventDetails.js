@@ -89,6 +89,9 @@ function EventDetails(){
             </p>
             <p className="price-text"><span className="details-tag">Price:</span> ${eventData.price}</p>
             <p className="spots-text"><span className="details-tag">Currently spots available:</span> {eventData.availableSpots}</p>
+            <button id="book-button" onClick={ () => navigate(`/bookEvent/${id}`)}>
+              Book Now
+            </button>
           </div>
         </div>
         <div className="event-description-container">

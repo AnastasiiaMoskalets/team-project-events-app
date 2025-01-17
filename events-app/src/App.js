@@ -29,7 +29,7 @@ export default function App() {
           <Route path="createEvent" element={<CreateEvent />} />
           <Route path="updateEvent/:id" element={<UpdateEvent /> }/>
         </Route>
-        <Route path="/bookEvent" element={<BookEvent />} />
+        <Route path="/bookEvent/:id" element={<BookEvent />} />
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
         {/* Routes under the /auth path */}
         <Route path="/auth" element={<AuthLayout />}>

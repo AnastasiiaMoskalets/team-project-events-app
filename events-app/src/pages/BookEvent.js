@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../layouts/bookEventStyles.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,12 +17,13 @@ function BookEvent() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const eventId = "6782ddad64f87618b2de85f5";
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/events/${eventId}`);
+                console.log(id);
+                const response = await axios.get(`http://localhost:5000/api/events/${id}`);
                 setEventDetails(response.data);
                 setLoading(false);
             } catch (err) {
@@ -32,7 +34,7 @@ function BookEvent() {
         };
 
         fetchEventDetails();
-    }, [eventId]);
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +51,7 @@ function BookEvent() {
             const response = await axios.post(
                 "http://localhost:5000/api/bookings/book",
                 {
-                    eventId,
+                    id,
                     firstName: bookingData.firstName,
                     lastName: bookingData.lastName,
                     phoneNumber: bookingData.phoneNumber,
