@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 6rem;
     margin: 0;
     padding: 0;
     background-color: #F9F9F9;
@@ -19,17 +20,23 @@
 .forms-container {
     background-color: #F9F9F9;
     border-radius: 1rem;
-    max-width: 100%; /* Забезпечує коректну ширину */
+    max-width: 100%;
     width: 50rem;
-    margin-left: 14rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    flex-shrink: 0;
+    padding: 0rem 1rem 3rem;
 }
+
 
 .summary-container {
     background-color: #F4F4F6;
-    width: 25%;
-    height: 48rem;
+    width: 100%;
+    height: 50rem;
     margin-top: -4rem;
     margin-left: 1rem;
+    overflow-y: auto;
+    flex-shrink: 0;
 }
 
 .booking-h1 {
@@ -37,7 +44,7 @@
     font-weight: bold;
     color: #131315;
     margin-bottom: 1.5rem;
-    margin-left: 3rem;
+    margin-left: 2rem;
     padding: 2rem;
 }
 
@@ -48,11 +55,12 @@
     margin-bottom: 1.5rem;
     text-align: start;
     margin-left: 2rem;
-    margin-top: 0;
+    margin-top: 1rem;
 }
 
 .bookings-form {
     background-color: #F9F9F9;
+    margin-top: -1rem;
 }
 
 .booking-form-group {
@@ -60,16 +68,17 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: -15rem; /* Прибрано зайвий відступ */
-    width: 100%; /* Гарантує, що елемент не виходить за межі */
+    margin-left: -15rem; 
+    width: 100%; 
     max-width: 25rem;
 }
 
 .forms-label {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: normal;
     color: #131315;
     margin-bottom: 0.5rem;
+    margin-top: 0rem;
 }
 
 .booking-input {
@@ -81,10 +90,16 @@
     background-color: #FFFFFF;
     box-sizing: border-box;
 }
+    .booking-input:focus {
+        border-color: #7848F4; 
+        box-shadow: 0 0 8px rgba(120, 72, 244, 0.3); 
+        transform: scale(1.02); 
+        outline: none; 
+    }
 
 
 .booking-button {
-    width: 100%; /* Виправлено ширину, щоб уникнути виходу за межі */
+    width: 100%; 
     max-width: 30%;
     padding: 1rem;
     font-size: 1rem;
@@ -96,7 +111,7 @@
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
-    margin-left: -24.7rem; /* Прибрано зайвий відступ */
+    margin-left: -25rem; 
 }
 
     .booking-button:hover {
@@ -107,7 +122,7 @@
 .summary-details {
     margin-bottom: 1rem;
     margin-left: 2rem;
-    font-weight: normal; /* Додаємо це правило */
+    font-weight: normal; 
     margin-top: -0.2rem;
 }
 
@@ -116,7 +131,7 @@
         font-size: 1rem;
         margin-bottom: 0.5rem;
         color: #131315;
-        font-weight: normal; /* Додаємо це правило */
+        font-weight: normal; 
         margin-top: 0;
     }
 
@@ -133,11 +148,11 @@
     }
 
 .booking-event-image {
-    width: 100%; /* Забезпечує правильне масштабування */
+    width: 100%;
     height: auto;
     object-fit: cover;
     display: block;
-    margin: 0; /* Прибрано зайві відступи */
+    margin: 0; 
     padding: 0;
     margin-top: 1.5rem;
 }
