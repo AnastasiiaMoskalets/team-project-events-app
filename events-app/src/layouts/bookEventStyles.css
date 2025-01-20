@@ -26,6 +26,7 @@
     margin-top: 2rem;
     flex-shrink: 0;
     padding: 0rem 1rem 3rem;
+    margin-left: 2rem;
 }
 
 
@@ -34,9 +35,8 @@
     width: 100%;
     height: 50rem;
     margin-top: -4rem;
-    margin-left: 1rem;
-    overflow-y: auto;
-    flex-shrink: 0;
+    margin-left: 9rem;
+    overflow-y: hidden;
 }
 
 .booking-h1 {
@@ -52,10 +52,10 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #131315;
-    margin-bottom: 1.5rem;
+    margin-bottom: -8rem;
     text-align: start;
     margin-left: 2rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .bookings-form {
@@ -120,39 +120,31 @@
     }
 
 .summary-details {
-    margin-bottom: 1rem;
-    margin-left: 2rem;
-    font-weight: normal; 
-    margin-top: -0.2rem;
+    margin-bottom: 0;
+    margin-left: 3.8rem;
+    font-weight: normal;
+    padding: 0;
+    margin-top: 9rem;
 }
 
     .summary-details p {
         text-align: start;
         font-size: 1rem;
-        margin-bottom: 0.5rem;
+        margin: 0;
         color: #131315;
-        font-weight: normal; 
-        margin-top: 0;
+        font-weight: normal;
+        padding: 0;
+        margin: 1rem 0;
     }
 
-    .summary-location,
-    .summary-hours {
-        font-size: 0.9rem;
-        color: #131315;
-        margin-top: 0.5rem;
-    }
-
-    .summary-hours span {
-        display: block;
-        margin-top: 0.2rem;
-    }
 
 .booking-event-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    margin: 0; 
-    padding: 0;
+    width: 105%;
+    height: 50%;
+    max-width: 240%;
+    max-height: 100%;
+    object-fit: contain;
+    display: flex;
     margin-top: 1.5rem;
+    margin-left: -1rem;
 }
