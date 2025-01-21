@@ -85,7 +85,7 @@ function BookEvent() {
                 <h1 className="booking-h1">Personal Information</h1>
                 <form onSubmit={handleSubmit} className="bookings-form">
                     <div className="booking-form-group">
-                        <label htmlFor="firstName" className="forms-label">First Name</label>
+                        <label htmlFor="firstName" className="forms-label">FIRST NAME</label>
                         <input
                             type="text"
                             id="firstName"
@@ -98,7 +98,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="lastName" className="forms-label">Last Name</label>
+                        <label htmlFor="lastName" className="forms-label">LAST NAME</label>
                         <input
                             type="text"
                             id="lastName"
@@ -111,7 +111,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="email" className="forms-label">Your Email</label>
+                        <label htmlFor="email" className="forms-label">YOUR EMAIl</label>
                         <input
                             type="email"
                             id="email"
@@ -124,7 +124,7 @@ function BookEvent() {
                         />
                     </div>
                     <div className="booking-form-group">
-                        <label htmlFor="phoneNumber" className="forms-label">Phone Number</label>
+                        <label htmlFor="phoneNumber" className="forms-label">PHONE NUMBER</label>
                         <input
                             type="tel"
                             id="phoneNumber"
@@ -140,10 +140,12 @@ function BookEvent() {
                 </form>
             </div>
             <div className="summary-container">
-                <img src={imageUrl} alt="Event" className="booking-event-image" />
+                    <img src={imageUrl} alt="Event" className="booking-event-image" />
+                
                 <h2 className="summary-title">
                     <FontAwesomeIcon icon={faLocationDot} /> Event Summary
                 </h2>
+                
                 <div className="summary-details">
                     <p>{eventDetails.title}</p>
                     <p>Price: ${eventDetails.price}</p>
