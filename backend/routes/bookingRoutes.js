@@ -161,7 +161,7 @@ router.get("/my-bookings", isAuthenticated, async (req, res) => {
         console.log("User ID for bookings query:", userId);
 
         // Find bookings and populate event details
-        const bookings = await Booking.find({ userId }).populate("eventId", "title date location");
+        const bookings = await Booking.find({ userId }).populate("eventId");
         console.log("Retrieved bookings:", bookings);
 
         // Respond with bookings

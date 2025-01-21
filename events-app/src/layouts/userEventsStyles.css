@@ -10,6 +10,10 @@ user-body {
     align-items: center; 
     min-height: 100vh; 
 }
+
+#main-user-events-container{
+    margin-top: 7rem;
+}
 .user-events-page {
     margin-top: 7rem;
     
@@ -23,9 +27,8 @@ user-body {
 .user-info-container {
     width: 100%; 
     max-width: 75rem; 
-    margin-top:7rem;
     padding: 2rem;
-    border-radius: 1.5rem;
+    border-radius:0 1.5rem 1.5rem 1.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     text-align: center;
     background-color: white;
@@ -236,9 +239,31 @@ user-form {
 
 #user-root {
     display: flex;
-    justify-content: center; 
+    justify-content: left; 
     align-items: center; 
     height: 100%; 
     width: 100%; 
     height: 100%;
+}
+.tabs {
+    display: flex;
+}
+
+.tabs a {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1rem 1rem 0 0;
+    padding: 1.5rem 3rem;
+    text-align: center;
+    text-decoration: none;
+    background-color: #DEE3F4;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.tabs .active-tab {
+    background-color: white;
+    color: black;
 }

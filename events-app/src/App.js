@@ -13,6 +13,7 @@ import EventDetails from "./pages/EventDetails";
 import Events from "./pages/Events";
 import UpdateEvent from "./pages/UpdateEvent";
 import BookEvent from "./pages/BookEvent";
+import UserBookings from "./pages/UserBookings";
 
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
           <Route index element={<UserEvents />} />
           <Route path="createEvent" element={<CreateEvent />} />
           <Route path="updateEvent/:id" element={<UpdateEvent /> }/>
+          <Route path="userBookings" element={<UserBookings/>}/>
         </Route>
         <Route path="/bookEvent/:id" element={<BookEvent />} />
       {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
