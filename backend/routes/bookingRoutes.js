@@ -171,6 +171,28 @@ router.get("/my-bookings", isAuthenticated, async (req, res) => {
         res.status(500).json({ error: "Error retrieving bookings" });
     }
 });
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        if (!req.session.email) {
+            return res.status(401).json({ error: "Unauthorized: No active session" });
+        }
+        const user = await User.findOne({ email: req.session.email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const booking = await Booking.findById(id); // Match `_id` only here
+        if (!booking) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+        res.status(200).json(booking);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 
 
 module.exports = router;
