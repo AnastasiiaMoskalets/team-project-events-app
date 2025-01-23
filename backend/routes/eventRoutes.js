@@ -155,11 +155,12 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
                 event[key] = updates[key];
             }
         });
+
         if (updates.maxSpots !== undefined) {
             const maxSpots = updates.maxSpots;
 
             // Ensure `availableSpots` is adjusted based on new `maxSpots` value
-            const bookedUsersCount = event.bookedUsers.length;
+            const bookedUsersCount = event.maxSpots - event.availableSpots;
             if (maxSpots < bookedUsersCount) {
                 return res.status(400).json({
                     error: "Max spots cannot be less than the number of currently booked users",
@@ -169,7 +170,7 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
             // Update `availableSpots`
             event.availableSpots = maxSpots - bookedUsersCount;
         }
-
+        
         await event.save();
 
         res.status(200).json({ message: "Event updated successfully", event });
