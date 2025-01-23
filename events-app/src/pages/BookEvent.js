@@ -4,6 +4,7 @@ import "../layouts/bookEventStyles.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
+import NavBar from "../Components/Navbar"
 
 function BookEvent() {
     const [bookingData, setBookingData] = useState({
@@ -80,7 +81,9 @@ function BookEvent() {
         : "http://localhost:5000/user-images/eventDefault.png"; // Fallback to default image
 
     return (
+        
         <div className="booking-body">
+            <NavBar />
             <div className="forms-container">
                 <h1 className="booking-h1">Personal Information</h1>
                 <form onSubmit={handleSubmit} className="bookings-form">

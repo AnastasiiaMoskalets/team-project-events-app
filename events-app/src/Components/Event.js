@@ -1,6 +1,6 @@
 import React , {useState}from "react";
 
-function Event({ eventData, onClick, onDelete, onUpdate, showButtons }){
+function Event({ eventData, onClick, onDelete, onUpdate,onShowDetails, showOrganizerButtons, showBookingsButtons }){
     const dateString = eventData.date;
     const date = new Date(dateString);
     const day = date.getDate(); 
@@ -25,11 +25,18 @@ function Event({ eventData, onClick, onDelete, onUpdate, showButtons }){
          
       }}>
             <p className="event-price">${eventData.price}</p>
-            {showButtons && (
+            {showOrganizerButtons && (
            isHovered && (
             <div className="event-overlay">
               <button className="event-button" onClick={onDelete}>Delete</button>
               <button className="event-button" onClick={onUpdate}>Update</button> 
+            </div>
+          )
+        )}
+        {showBookingsButtons && (
+           isHovered && (
+            <div className="event-overlay">
+              <button className="event-button" onClick={onShowDetails}>Show Details</button> 
             </div>
           )
         )}

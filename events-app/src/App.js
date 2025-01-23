@@ -14,6 +14,8 @@ import Events from "./pages/Events";
 import UpdateEvent from "./pages/UpdateEvent";
 import BookEvent from "./pages/BookEvent";
 import UserBookings from "./pages/UserBookings";
+import BookingDetails from "./pages/BookingDetails";
+import UserCreatedEvents from "./pages/UserCreatedEvents";
 
 
 export default function App() {
@@ -26,14 +28,17 @@ export default function App() {
         </Route>
         <Route path="/user" element={<UserLayout />}/>
         <Route path="/userEvents" element={<UserEventsLayout/>} >
-          <Route index element={<UserEvents />} />
+          <Route path="" element={<UserEvents/>}>
+            <Route index element={<Navigate to="userCreatedEvents" replace />} />
+            <Route path="userCreatedEvents" element={<UserCreatedEvents />} />
+            <Route path="userBookings" element={<UserBookings/>}/>
+          </Route>
           <Route path="createEvent" element={<CreateEvent />} />
           <Route path="updateEvent/:id" element={<UpdateEvent /> }/>
-          <Route path="userBookings" element={<UserBookings/>}/>
+          
+          <Route path="bookingDetails/:id" element={<BookingDetails/>}/>
         </Route>
         <Route path="/bookEvent/:id" element={<BookEvent />} />
-      {/*  <Route path="/" element={<Navigate to="/auth/register" />} />*/}
-        {/* Routes under the /auth path */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />

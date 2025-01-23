@@ -11,7 +11,7 @@ const path = require('path');
 require("dotenv").config();
 
 const generateEmailTemplate = require('./emailTemplate');
-const DEFAULT_IMAGE = '/user-images/default.png'; // Define the default image path
+const DEFAULT_IMAGE = '/public/user-images/default.png'; // Define the default image path
 
 
 
@@ -215,77 +215,56 @@ router.put("/update-profile", async (req, res) => {
 
 router.put("/update-image", upload.single("profileImage"), async (req, res) => {
     try {
-        const { email } = req.body;  // Get email from the request body
-        const user = await User.findOne({ email });  // Find the user by email
+        const { email } = req.body;
+        const user = await User.findOne({ email });
 
         if (!user) {
-            // Delete the uploaded file if the user is not found
-            if (req.file) {
-                fs.unlinkSync(req.file.path); // Remove the newly uploaded file
-            }
+            if (req.file) fs.unlinkSync(req.file.path);
             return res.status(404).json({ error: "User not found" });
         }
-       
-        // Check if the user already has an existing image and delete it (only if it's not the default)
-        if (user.profileImage === DEFAULT_IMAGE) {
-            
-            console.log("Default image is set, skipping deletion");
-        } else {
-            const oldImagePath = path.join(__dirname, '..', 'public', user.profileImage);
+
+        if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
+            const oldImagePath = path.join(__dirname, "../", user.profileImage);
             if (fs.existsSync(oldImagePath)) {
-                fs.unlinkSync(oldImagePath); // Delete only custom images
+                fs.unlinkSync(oldImagePath);
             }
         }
 
-
-        // Save the new profile image path (relative to public)
-        user.profileImage = `/user-images/${req.file.filename}`;  // Correct path
-
+        user.profileImage = `/public/user-images/${req.file.filename}`;
         await user.save();
 
-        // Return the full URL of the new image
-        const fullImageUrl = `${req.protocol}://${req.get('host')}${user.profileImage}`;
+        const fullImageUrl = `${req.protocol}://${req.get("host")}/${user.profileImage}`;
         res.status(200).json({ message: "Profile image updated successfully", profileImage: fullImageUrl });
     } catch (error) {
-        console.error(error);
-
-        // Clean up in case of errors
-        if (req.file) {
-            fs.unlinkSync(req.file.path); // Remove the newly uploaded file
-        }
-
+        if (req.file) fs.unlinkSync(req.file.path);
         res.status(500).json({ error: "Error updating profile image" });
     }
 });
 
 
+
 router.put("/delete-image", async (req, res) => {
     try {
-        const { email } = req.body;  // Get email from the request body
-        const user = await User.findOne({ email });  // Find the user by email
+        const { email } = req.body;
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Check if the user has a custom image and delete it
         if (user.profileImage && user.profileImage !== DEFAULT_IMAGE) {
-            const imagePath = path.join(__dirname, '..', 'public', user.profileImage);
-            // Verify that the file path is not the default image
-            if (fs.existsSync(imagePath) && !imagePath.endsWith(DEFAULT_IMAGE)) {
-                fs.unlinkSync(imagePath); // Delete the custom image file
+            const imagePath = path.join(__dirname, "../", user.profileImage);
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath);
             }
         }
 
-        // Set the profile image to the default image
         user.profileImage = DEFAULT_IMAGE;
         await user.save();
 
-        // Return the default image URL
-        const fullDefaultImageUrl = `${req.protocol}://${req.get('host')}${DEFAULT_IMAGE}`;
+        const fullDefaultImageUrl = `${req.protocol}://${req.get("host")}/${DEFAULT_IMAGE}`;
         res.status(200).json({ message: "Profile image reset to default", profileImage: fullDefaultImageUrl });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: "Error deleting profile image" });
     }
 });

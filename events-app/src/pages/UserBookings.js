@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Event from "../Components/Event";
 import UserContext from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 function UserBookings() {
     const { userData } = useContext(UserContext);
-    const [bookingsData, setBookingsData] = useState([]); // ✅ Fix: use empty array
+    const [bookingsData, setBookingsData] = useState([]); 
+    const navigate = useNavigate();
 
     const fetchBookings = async () => {
         try {
@@ -18,7 +20,9 @@ function UserBookings() {
             console.error(`Error fetching user bookings data: ${error}`);
         }
     };
-
+    const handleShowDetails = (id) => {
+        navigate(`/userEvents/bookingDetails/${id}`)
+    }
     useEffect(() => {
         fetchBookings();
     }, []);
@@ -37,7 +41,8 @@ function UserBookings() {
                             <Event
                                 eventData={booking.eventId}
                                 key={booking._id} // ✅ Correct unique key
-                                showButtons={false}
+                                showBookingsButtons={true}
+                                onShowDetails={() => handleShowDetails(booking._id)}
                             />
                         ))
                     )}

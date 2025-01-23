@@ -182,7 +182,7 @@ router.get("/:id", async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-        const booking = await Booking.findById(id); // Match `_id` only here
+        const booking = await Booking.findById(id).populate("eventId");  
         if (!booking) {
             return res.status(404).json({ error: "Booking not found" });
         }
