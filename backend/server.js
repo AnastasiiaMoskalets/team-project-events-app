@@ -47,7 +47,8 @@ connectDB();
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
-app.use('/user-images', express.static(path.join(__dirname, 'public/user-images')));// Serve files from backend/routes/user-images
+app.use('/public/user-images', express.static(path.join(__dirname, 'public/user-images')));
+
 app.use('/api/bookings', bookingRoutes);
 
 // Catch all errors

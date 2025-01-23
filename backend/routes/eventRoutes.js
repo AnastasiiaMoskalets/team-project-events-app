@@ -7,7 +7,7 @@ const multer = require("multer");
 const path = require('path');
 const User = require("../models/User");
 
-const DEFAULT_IMAGE = "/user-images/eventDefault.png";
+const DEFAULT_IMAGE = "/public/user-images/eventDefault.png";
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, "../public/user-images"),
@@ -48,7 +48,7 @@ router.post("/create", isAuthenticated, upload.single("eventImage"), async (req,
 
         let eventImage = DEFAULT_IMAGE; 
         if (req.file) {
-            eventImage = `/user-images/${req.file.filename}`; 
+            eventImage = `/public/user-images/${req.file.filename}`; 
         }
 
         const event = new Event({
@@ -215,12 +215,12 @@ router.put("/update-image/:id", isAuthenticated, upload.single("eventImage"), as
 
             // Delete the previous image if it's not the default
             if (event.eventImage && event.eventImage !== DEFAULT_IMAGE) {
-                const oldImagePath = path.join(__dirname, "../public", event.eventImage);
+                const oldImagePath = path.join(__dirname, "../", event.eventImage);
                 deleteFileIfExists(oldImagePath);
             }
 
             // Save the new image path
-            event.eventImage = `/user-images/${req.file.filename}`;
+            event.eventImage = `/public/user-images/${req.file.filename}`;
             await event.save();
 
             const fullImageUrl = `${req.protocol}://${req.get("host")}${event.eventImage}`;
@@ -256,7 +256,7 @@ router.put("/reset-image/:id", isAuthenticated, async (req, res) => {
 
         // Delete the current image if it's not the default
         if (event.eventImage && event.eventImage !== DEFAULT_IMAGE) {
-            const oldImagePath = path.join(__dirname, "../public", event.eventImage);
+            const oldImagePath = path.join(__dirname, "../", event.eventImage);
             deleteFileIfExists(oldImagePath);
         }
 
