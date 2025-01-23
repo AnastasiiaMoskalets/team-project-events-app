@@ -13,7 +13,8 @@ function UpdateEvent() {
         time:"",
         location:"",
         maxSpots:"",
-        price:""
+        price:"",
+        eventImage: null
     }
     const {fetchUserData} = useContext(UserContext)
     const navigate = useNavigate();
@@ -36,7 +37,8 @@ function UpdateEvent() {
                     time:response.data.time,
                     location: response.data.location,
                     maxSpots: response.data.maxSpots,
-                    price: response.data.price
+                    price: response.data.price,
+                    eventImage: response.data.eventImage
                 });
     
             } else {
@@ -55,13 +57,24 @@ function UpdateEvent() {
     useEffect(() => {
         fetchEventData()
     }, []);
-    const handleImageChange = (e) => {
-        setNewImage(e.target.files[0]);
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+    
+        // Set the new image preview URL
+        const imageUrl = URL.createObjectURL(file);
+        setFormData((prevData) => ({ ...prevData, eventImage: imageUrl }));
+        
+        // Set the new image to the state for future upload
+        setNewImage(file);
     };
+    
+    
     const handleUpdateEvent = async (e) => {
         e.preventDefault();
         
         try {
+            // Only upload the image if it has changed
             if (newImage) {
                 const formData2 = new FormData();
                 formData2.append("eventImage", newImage);  // Append the image to FormData
@@ -83,20 +96,23 @@ function UpdateEvent() {
                 }
             }
             
+            // Update event details
             const response = await axios.put(`http://localhost:5000/api/events/update/${id}`, formData,  {
                 withCredentials: true
             });
+    
             if (response.status === 200) {
                 navigate("/userEvents");
                 fetchUserData();
-                console.log("Event updated succesfuly")
-                setSuccessMessage("Event updated succesfuly")
+                console.log("Event updated successfully");
+                setSuccessMessage("Event updated successfully");
             }
         } catch (error) {
             console.error("Error updating event:", error);
-            setErrorMessage("Error updating event:", error)
+            setErrorMessage("Error updating event");
         }
     };
+    
     return(
         <div className="event-body">
             <div className="event-info-container">
@@ -104,24 +120,31 @@ function UpdateEvent() {
                 <form onSubmit={handleUpdateEvent} className="event-form">
                     <div className="event-form-group">
                         <div className="add-image-container">
-                            <div className="add-image-text">
-                                {newImage ? newImage.name : "No image selected"}
-                            </div>
+                            {formData.eventImage ? (
+                                <img
+                                    src={formData.eventImage.startsWith("blob:") ? formData.eventImage : `http://localhost:5000${formData.eventImage}`}
+                                    alt="Event"
+                                    className="image-preview"
+                                />
+                                ) : (
+                                    <p>No image available</p>
+                            )}
                             <button
                                 type="button"
                                 className="event-button add-image-button"
                                 onClick={() => document.getElementById("eventImage").click()}
                             >
-                                Add an Image
+                                Upload New Image
                             </button>
-                            <input
-                                type="file"
-                                id="eventImage"
-                                name="eventImage"
-                                onChange={handleImageChange}
-                                accept="image/*"
-                            />
                         </div>
+                        <input
+                            type="file"
+                            id="eventImage"
+                            name="eventImage"
+                            onChange={handleImageChange}
+                            accept="image/*"
+                            style={{ display: "none" }} // Hides the default file input
+                        />
                     </div>
 
                     <div className="event-form-group title-price-container">

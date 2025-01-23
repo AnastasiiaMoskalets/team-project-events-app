@@ -128,7 +128,7 @@ function BookingDetails(){
                 <button onClick={handleCancel} className="event-button">Cancel booking</button>
             </div>
             <div className="summary-container">
-                    <img src={formData.eventId.eventImage} alt="Event" className="booking-event-image" />
+                    <img src={`http://localhost:5000${formData.eventId.eventImage}`} alt="Event" className="booking-event-image" />
                 
                 <h2 className="summary-title">
                     <FontAwesomeIcon icon={faLocationDot} /> Event Summary
