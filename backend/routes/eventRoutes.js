@@ -1,5 +1,6 @@
 const express = require("express");
 const Event = require("../models/Event");
+const Booking = require("../models/Booking");
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // Authentication middleware
 const fs = require('fs');
@@ -191,7 +192,7 @@ router.delete("/delete/:id", isAuthenticated, async (req, res) => {
         if (!event) {
             return res.status(404).json({ error: "Event not found or not authorized" });
         }
-
+        await Booking.deleteMany({ eventId: id });
         res.status(200).json({ message: "Event deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
