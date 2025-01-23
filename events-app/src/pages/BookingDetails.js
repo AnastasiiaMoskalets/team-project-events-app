@@ -85,6 +85,7 @@ function BookingDetails(){
                             value={formData.firstName}
                             className="booking-input"
                             required
+                            disabled
                         />
                     </div>
                     <div className="booking-form-group">
@@ -96,6 +97,7 @@ function BookingDetails(){
                             value={formData.lastName}
                             className="booking-input"
                             required
+                            disabled
                         />
                     </div>
                     <div className="booking-form-group">
@@ -107,6 +109,7 @@ function BookingDetails(){
                             value={formData.contactEmail}
                             className="booking-input"
                             required
+                            disabled
                         />
                     </div>
                     <div className="booking-form-group">
@@ -118,6 +121,7 @@ function BookingDetails(){
                             value={formData.phoneNumber}
                             className="booking-input"
                             required
+                            disabled
                         />
                     </div>
                 </form>
