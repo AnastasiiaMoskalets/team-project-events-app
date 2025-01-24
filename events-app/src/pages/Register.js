@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import UserContext from "../UserContext"
 
 const RegisterPage = () => {
   const [userName, setUserName] = useState('');
@@ -8,6 +9,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const {setIsLoggedIn} = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,6 +26,7 @@ const RegisterPage = () => {
     });
 
       if(response.status === 201){
+        setIsLoggedIn(true)
         navigate('/user');
         console.log("User registered successfully");
       }
