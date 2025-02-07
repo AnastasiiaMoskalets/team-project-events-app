@@ -13,19 +13,17 @@ function UserProfile() {
         profileImage: "",
     });
     useEffect(() => {
-        fetchUserData()
+        fetchUserData();
         if (userData) {
-            console.log("data setting")
+            console.log("data setting");
             setFormData({
                 username: userData.username,
                 email: userData.email,
                 profileImage: userData.profileImage,
             });
         }
-    }, [userData]);
-
-
-
+    }, [userData, fetchUserData]); 
+    
     useEffect(() => {
         console.log('Updated formData:', formData);
     }, [formData]);  // This will trigger whenever formData changes

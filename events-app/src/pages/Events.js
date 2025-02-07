@@ -47,7 +47,7 @@ function Events() {
 
   return (
     <div className="main-events-container">
-      <form class="search-form" action="/search" method="GET" onSubmit={handleSearch}>
+      <form className="search-form" action="/search" method="GET" onSubmit={handleSearch}>
         <input type="text" name="query" placeholder="Search..." aria-label="Search" className="search-input"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
