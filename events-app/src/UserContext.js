@@ -1,5 +1,6 @@
 import React, { createContext, useState, useCallback } from "react";
 import axios from "axios";
+import defaultImage from "./images/defaultProfile.png"
 
 const UserContext = createContext();
 
@@ -7,7 +8,7 @@ export const UserProvider = ({ children }) => {
   const initialUserData = {
         username: "init",
         email: "init",
-        profileImage: "init",
+        profileImage: defaultImage,
         events:[]
   }
 
