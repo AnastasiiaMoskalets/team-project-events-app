@@ -31,8 +31,6 @@ function UserProfile() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
-
-        // Check if there are changes
         setIsUpdated(true);
     };
 
