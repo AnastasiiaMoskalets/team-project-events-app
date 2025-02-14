@@ -1,6 +1,7 @@
 import React , {useState}from "react";
 
 function Event({ eventData, onClick, onDelete, onUpdate,onShowDetails, showOrganizerButtons, showBookingsButtons }){
+    const apiUrl = process.env.REACT_APP_API_URL;
     const dateString = eventData.date;
     const date = new Date(dateString);
     const day = date.getDate(); 
@@ -18,7 +19,7 @@ function Event({ eventData, onClick, onDelete, onUpdate,onShowDetails, showOrgan
         onMouseLeave={handleMouseLeave}
     >
         <div className="event-image-container" style={{
-        backgroundImage: `url(http://localhost:5000${eventData.eventImage})`,
+        backgroundImage: `url(${apiUrl}${eventData.eventImage})`,
         backgroundSize: "cover", 
         backgroundPosition: "center",
         height: '170px'

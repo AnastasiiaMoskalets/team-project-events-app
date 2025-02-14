@@ -6,6 +6,7 @@ import Event from '../Components/Event';
 import UserContext from '../UserContext';
 
 function UserCreatedEvents() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const {userData, fetchUserData} = useContext(UserContext)
     const navigate = useNavigate()
 
@@ -19,7 +20,7 @@ function UserCreatedEvents() {
     
     const handleEventDelete = async (_id) =>{
         try{
-            const response = await axios.delete(`http://localhost:5000/api/events/delete/${_id}`, {
+            const response = await axios.delete(`${apiUrl}/api/events/delete/${_id}`, {
                     withCredentials: true
                 })
             if(response.status === 200){

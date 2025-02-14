@@ -5,13 +5,14 @@ import UserContext from "../UserContext";
 import { useNavigate } from "react-router-dom";
 
 function UserBookings() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { userData } = useContext(UserContext);
     const [bookingsData, setBookingsData] = useState([]); 
     const navigate = useNavigate();
 
     const fetchBookings = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/bookings/my-bookings", { withCredentials: true });
+            const response = await axios.get(`${apiUrl}/api/bookings/my-bookings`, { withCredentials: true });
             if (response.status === 200) {
                 console.log("Setting bookings data:", response.data);
                 setBookingsData(response.data);

@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserContext from "../UserContext";
 import { FileUpload } from 'primereact/fileupload';
 function UserProfile() {
-    
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [isEditable, setIsEditable] = useState(false);
     const [isUpdated, setIsUpdated] = useState(false);
     const { userData, fetchUserData} = useContext(UserContext);
@@ -43,7 +43,7 @@ function UserProfile() {
         setIsUpdated(false);
         // Instead of mutating `initialUserData`, use setFormData directly for updating
         try {
-            const response = await axios.put("http://localhost:5000/api/users/update-profile", formData,  {
+            const response = await axios.put(`${apiUrl}/api/users/update-profile`, formData,  {
                 withCredentials: true
             });
             if (response.status === 200) {
@@ -66,7 +66,7 @@ function UserProfile() {
 
         try {
             const response = await axios.put(
-                "http://localhost:5000/api/users/update-image", // Your backend URL
+                `${apiUrl}/api/users/update-image`, // Your backend URL
                 uploadData,
                 {
                     withCredentials: true, // Ensure cookies/session are sent along with the request

@@ -8,12 +8,13 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'; // 
 import axios from "axios";
 
 function Navbar() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const { userData, isLoggedIn, setIsLoggedIn} = useContext(UserContext);
 
   const logout = async () => {
     try{
-      const response = axios.post("http://localhost:5000/api/users/logout",{
+      const response = axios.post(`${apiUrl}/api/users/logout`,{
         withCredentials: true
       })
         setIsLoggedIn(false)

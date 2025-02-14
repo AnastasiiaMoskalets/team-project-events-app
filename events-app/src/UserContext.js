@@ -2,6 +2,7 @@ import React, { createContext, useState, useCallback } from "react";
 import axios from "axios";
 import defaultImage from "./images/defaultProfile.png"
 
+const apiUrl = process.env.REACT_APP_API_URL;
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -21,7 +22,7 @@ export const UserProvider = ({ children }) => {
   // Fetch user data from the API
   const fetchUserData = useCallback(async () => {
     try {
-        const response = await axios.get("http://localhost:5000/api/users/profile-data", {
+        const response = await axios.get(`${apiUrl}/api/users/profile-data`, {
             withCredentials: true
         });
         if (response.status === 200) {

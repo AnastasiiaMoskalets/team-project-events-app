@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 
 function BookingDetails(){
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { id } = useParams();
     const [formData, setFormData] = useState({
         eventId: {
@@ -23,7 +24,7 @@ function BookingDetails(){
     const navigate = useNavigate();
     const fetchBookingDetails = async () => {
         try{
-            const response = await axios.get(`http://localhost:5000/api/bookings/${id}`,{
+            const response = await axios.get(`${apiUrl}/api/bookings/${id}`,{
                 withCredentials:true
             })
             
@@ -57,7 +58,7 @@ function BookingDetails(){
             return
         }
         try{
-            const response = await axios.delete(`http://localhost:5000/api/bookings/cancel/${id}`, {
+            const response = await axios.delete(`${apiUrl}/api/bookings/cancel/${id}`, {
                 withCredentials: true
             })
             if(response.status === 200){
@@ -128,7 +129,7 @@ function BookingDetails(){
                 <button onClick={handleCancel} className="event-button">Cancel booking</button>
             </div>
             <div className="summary-container">
-                    <img src={`http://localhost:5000${formData.eventId.eventImage}`} alt="Event" className="booking-event-image" />
+                    <img src={`${apiUrl}${formData.eventId.eventImage}`} alt="Event" className="booking-event-image" />
                 
                 <h2 className="summary-title">
                     <FontAwesomeIcon icon={faLocationDot} /> Event Summary

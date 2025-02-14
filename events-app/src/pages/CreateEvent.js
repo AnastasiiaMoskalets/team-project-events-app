@@ -4,6 +4,7 @@ import "../layouts/createEventStyles.css";
 import UserContext from "../UserContext";
 
 function CreateEvent() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [eventData, setEventData] = useState({
         title: "",
         description: "",
@@ -44,7 +45,7 @@ function CreateEvent() {
         }
 
         try {
-            const response = await axios.post("http://localhost:5000/api/events/create", formData, {
+            const response = await axios.post(`${apiUrl}/api/events/create`, formData, {
                 withCredentials: true
             });
             setSuccessMessage("Event created successfully!");

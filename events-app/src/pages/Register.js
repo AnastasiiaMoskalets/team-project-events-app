@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const apiUrl = process.env.REACT_APP_API_URL;
     const data = {
       username: userName,
       email: email,
@@ -21,7 +21,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/signup', data,{
+      const response = await axios.post(`${apiUrl}/api/users/signup`, data,{
         withCredentials: true // Include credentials (cookies) with the request
     });
 

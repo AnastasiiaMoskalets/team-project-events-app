@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function Events() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [eventsData, setEventsData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchEventsData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/events/all", {
+      const response = await axios.get(`${apiUrl}/api/events/all`, {
         withCredentials: true
       });
       if (response.status === 200) {
@@ -30,7 +31,7 @@ function Events() {
 
   const handleSearch =async (e) =>{
     e.preventDefault()
-    try {const response = await axios.get("http://localhost:5000/api/events/search", {
+    try {const response = await axios.get(`${apiUrl}/api/events/search`, {
       params: { query: searchQuery }, // Pass the search query as a query parameter
     }, {
       withCredentials: true

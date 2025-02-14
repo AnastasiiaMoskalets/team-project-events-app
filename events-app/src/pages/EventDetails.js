@@ -7,13 +7,14 @@ import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 function EventDetails(){
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const { id } = useParams();
   const [eventData, setEventData] = useState([]);
-  const imageUrl = `http://localhost:5000${eventData.eventImage}`
+  const imageUrl = `${apiUrl}${eventData.eventImage}`
   const fetchEventData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/events/${id}`, {
+      const response = await axios.get(`${apiUrl}/api/events/${id}`, {
         withCredentials: true
       });
       if (response.status === 200) {
@@ -45,7 +46,7 @@ function EventDetails(){
         <div
           className="event-image"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://localhost:5000${eventData.eventImage})`,
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${apiUrl}${eventData.eventImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

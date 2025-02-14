@@ -11,13 +11,14 @@ function Login() {
   const {setIsLoggedIn} = useContext(UserContext);
 
   const handleSubmit = async (event) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     event.preventDefault();
     const data = {
       email: email,
       password: password,
     };
     try {
-      const response = await axios.post('http://localhost:5000/api/users/signin', data,{
+      const response = await axios.post(`${apiUrl}/api/users/signin`, data,{
         withCredentials: true // Include credentials (cookies) with the request
     });
       console.log(response.data)

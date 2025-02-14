@@ -7,13 +7,13 @@ import { faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../Components/Navbar"
 
 function BookEvent() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [bookingData, setBookingData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         phoneNumber: "",
     });
-
     const [eventDetails, setEventDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ function BookEvent() {
         const fetchEventDetails = async () => {
             try {
                 console.log(id);
-                const response = await axios.get(`http://localhost:5000/api/events/${id}`);
+                const response = await axios.get(`${apiUrl}/api/events/${id}`);
                 setEventDetails(response.data);
                 setLoading(false);
             } catch (err) {
@@ -50,7 +50,7 @@ function BookEvent() {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/api/bookings/book",
+                `${apiUrl}/api/bookings/book`,
                 {
                     eventId: id,
                     firstName: bookingData.firstName,
@@ -77,8 +77,8 @@ function BookEvent() {
     if (error) return <p>{error}</p>;
 
     const imageUrl = eventDetails?.eventImage
-        ? `http://localhost:5000${eventDetails.eventImage}`
-        : "http://localhost:5000/user-images/eventDefault.png"; // Fallback to default image
+        ? `${apiUrl}${eventDetails.eventImage}`
+        :`${apiUrl}/user-images/eventDefault.png`; // Fallback to default image
 
     return (
         

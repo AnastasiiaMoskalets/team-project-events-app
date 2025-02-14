@@ -5,6 +5,7 @@ import "../layouts/createEventStyles.css";
 import UserContext from "../UserContext";
 
 function UpdateEvent() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { id } = useParams();
     const initialEventData = {
         title :"",
@@ -24,7 +25,7 @@ function UpdateEvent() {
     const [errorMessage, setErrorMessage] = useState("");
     const fetchEventData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/events/${id}`, {
+            const response = await axios.get(`${apiUrl}/api/events/${id}`, {
                 withCredentials: true
             })
             if (response.status === 200) {
@@ -80,7 +81,7 @@ function UpdateEvent() {
                 formData2.append("eventImage", newImage);  // Append the image to FormData
     
                 const image_response = await axios.put(
-                    `http://localhost:5000/api/events/update-image/${id}`,
+                    `${apiUrl}/api/events/update-image/${id}`,
                     formData2,  // Send only the image as FormData
                     {
                         headers: {
@@ -97,7 +98,7 @@ function UpdateEvent() {
             }
             
             // Update event details
-            const response = await axios.put(`http://localhost:5000/api/events/update/${id}`, formData,  {
+            const response = await axios.put(`${apiUrl}/api/events/update/${id}`, formData,  {
                 withCredentials: true
             });
     
@@ -122,7 +123,7 @@ function UpdateEvent() {
                         <div className="add-image-container">
                             {formData.eventImage ? (
                                 <img
-                                    src={formData.eventImage.startsWith("blob:") ? formData.eventImage : `http://localhost:5000${formData.eventImage}`}
+                                    src={formData.eventImage.startsWith("blob:") ? formData.eventImage : `${apiUrl}${formData.eventImage}`}
                                     alt="Event"
                                     className="image-preview"
                                 />
