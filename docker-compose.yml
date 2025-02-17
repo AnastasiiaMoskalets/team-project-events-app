@@ -1,33 +1,20 @@
 version: '3.8'
 services:
   backend:
-    container_name: backend_service
+    container_name: backend
     build: ./backend
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo
     env_file:
       - "./backend/.env"
   frontend:
-    container_name: frontend_service
+    container_name: frontend
     build: ./events-app
     ports:
       - "3000:80"
+    env_file:
+      - "./events-app/.env"
     depends_on:
       - backend
-  mongo:
-    container_name: mongo_db
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+  
     
-volumes:
-  mongo-data:
