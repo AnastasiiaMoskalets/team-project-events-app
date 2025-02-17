@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
@@ -10,20 +10,25 @@ import axios from "axios";
 function Navbar() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const { userData, isLoggedIn, setIsLoggedIn} = useContext(UserContext);
+  const { userData, isLoggedIn, setIsLoggedIn, fetchUserData, setUserData} = useContext(UserContext);
+  useEffect(() => {
+    fetchUserData();
+}, [fetchUserData]);
 
-  const logout = async () => {
-    try{
-      const response = axios.post(`${apiUrl}/api/users/logout`,{
-        withCredentials: true
-      })
-        setIsLoggedIn(false)
-        console.log("res got from logout", response.status)
-        navigate('/')
-    }catch(error){
-      console.error("Error logging out:", error)
-    }
+const logout = async () => {
+  try {
+      const response = await axios.post(`${apiUrl}/api/users/logout`, {}, { withCredentials: true });
+
+      if (response.status === 200) {
+          setUserData(null);  // Ensure user data is cleared
+          setIsLoggedIn(false);
+          navigate("/");
+      }
+  } catch (error) {
+      console.error("Error logging out:", error);
   }
+};
+
 
   return (
     <header>
@@ -35,7 +40,7 @@ function Navbar() {
               Browse events
             </NavLink>
           </li>
-          {isLoggedIn ? (
+          {isLoggedIn && userData ? (
             <>
               <li>
                 <NavLink to="/userEvents" className={({ isActive }) => (isActive ? "active" : "nav-link")}>

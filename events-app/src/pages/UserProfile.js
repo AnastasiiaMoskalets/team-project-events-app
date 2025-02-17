@@ -12,8 +12,11 @@ function UserProfile() {
         email: "",
         profileImage: "",
     });
+    //useEffect(() => {
+    //    fetchUserData(); 
+    //}, [fetchUserData]); // Removed fetchUserData from dependencies
+    
     useEffect(() => {
-        fetchUserData();
         if (userData) {
             console.log("data setting");
             setFormData({
@@ -22,7 +25,7 @@ function UserProfile() {
                 profileImage: userData.profileImage,
             });
         }
-    }, [userData, fetchUserData]); 
+    }, [userData]); 
     
     useEffect(() => {
         console.log('Updated formData:', formData);

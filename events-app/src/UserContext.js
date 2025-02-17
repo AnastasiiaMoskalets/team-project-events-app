@@ -17,8 +17,6 @@ export const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   
-
-
   // Fetch user data from the API
   const fetchUserData = useCallback(async () => {
     try {
@@ -33,8 +31,10 @@ export const UserProvider = ({ children }) => {
                 profileImage: response.data.profileImage,
                 events: response.data.events
             });
+            setIsLoggedIn(true);
         } else {
             setUserData(null);
+            setIsLoggedIn(false);
         }
     } catch (error) {
         console.error("Error fetching user data:", error);
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
  
 
   return (
-    <UserContext.Provider value={{ userData, isLoggedIn, setIsLoggedIn, fetchUserData }}>
+    <UserContext.Provider value={{ userData, isLoggedIn, setIsLoggedIn, fetchUserData, setUserData }}>
       {children}
     </UserContext.Provider>
   );
