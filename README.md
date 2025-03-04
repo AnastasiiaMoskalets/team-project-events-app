@@ -30,14 +30,14 @@ In this project, the following technologies were used:
 
 To use this application, you must have Node.js and npm installed on your computer. You can download and install Node.js from [here](https://nodejs.org/).  
 
-### Clone the Repository  
+### 1. Clone the Repository  
 
 ```bash
 git clone https://github.com/Anastasiia1015/team-project-events-app.git
 cd team-project-events-app
 ```
 
-### Install Dependencies  
+### 2. Install Dependencies  
 
 Navigate to the **backend** and **frontend** directories separately and install the dependencies:  
 
@@ -45,19 +45,17 @@ Navigate to the **backend** and **frontend** directories separately and install 
 # Backend
 cd backend
 npm install
-```
 
-```bash
 # Frontend
 cd ../events-app
 npm install
 ```
 
-### Set Up Environment Variables  
+### 3. Set Up Environment Variables  
 
-Create a `.env` file in both the **backend** and **frontend** folders and add the required environment variables.  
+#### **Backend (`backend/.env`)**  
 
-#### Backend (`backend/.env`)  
+Create a `.env` file in the **backend** folder and add:  
 
 ```env
 MONGO_URI=your_mongodb_connection_string
@@ -66,24 +64,26 @@ EMAIL_PASS=your_email_password
 SESSION_SECRET=your_secret_key
 ```
 
-#### Frontend (`events-app/.env`)  
+#### **Frontend (`events-app/.env`)**  
+
+Create a `.env` file in the **frontend** folder and add:  
 
 ```env
 REACT_APP_API_URL=http://localhost:5000
 ```
 
-### Start the Application  
+### 4. Start the Application  
 
 Open two terminal windows:  
 
-#### Start the Backend  
+#### **Start the Backend**  
 
 ```bash
 cd backend
 npm start
 ```
 
-#### Start the Frontend  
+#### **Start the Frontend**  
 
 ```bash
 cd events-app
@@ -107,5 +107,7 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 ## Credits  
 
 This project was created by **Anastasiia Peliukhovska** and the team.  
-```
 
+---
+
+Let me know if you’d like any further modifications! 🚀
