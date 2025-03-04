@@ -1,10 +1,14 @@
+Thanks for the details! Here's the updated README file incorporating your `.env` configuration and features like logging in, registering for events, and creating events.  
 
-```markdown
+---
+
 # Events App  
 
 This is a web application that allows users to search for events, register for them, and even create their own events. The app provides a seamless experience with user authentication and event management features.  
 
 ## Features  
+
+The application offers the following features:  
 
 - **Search Events**: Users can search for events based on location and keyword.  
 - **Event Details**: View important information such as event name, date, time, and description.  
@@ -13,6 +17,8 @@ This is a web application that allows users to search for events, register for t
 - **Create Events**: Logged-in users can create and manage their own events.  
 
 ## Technologies Used  
+
+In this project, the following technologies were used:  
 
 - **Frontend**: React  
 - **Backend**: Node.js, Express  
