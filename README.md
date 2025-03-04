@@ -1,10 +1,10 @@
+
+```markdown
 # Events App  
 
 This is a web application that allows users to search for events, register for them, and even create their own events. The app provides a seamless experience with user authentication and event management features.  
 
 ## Features  
-
-The application offers the following features:  
 
 - **Search Events**: Users can search for events based on location and keyword.  
 - **Event Details**: View important information such as event name, date, time, and description.  
@@ -13,8 +13,6 @@ The application offers the following features:
 - **Create Events**: Logged-in users can create and manage their own events.  
 
 ## Technologies Used  
-
-In this project, the following technologies were used:  
 
 - **Frontend**: React  
 - **Backend**: Node.js, Express  
@@ -26,14 +24,14 @@ In this project, the following technologies were used:
 
 To use this application, you must have Node.js and npm installed on your computer. You can download and install Node.js from [here](https://nodejs.org/).  
 
-### 1. Clone the Repository  
+### Clone the Repository  
 
 ```bash
 git clone https://github.com/Anastasiia1015/team-project-events-app.git
 cd team-project-events-app
 ```
 
-### 2. Install Dependencies  
+### Install Dependencies  
 
 Navigate to the **backend** and **frontend** directories separately and install the dependencies:  
 
@@ -41,45 +39,45 @@ Navigate to the **backend** and **frontend** directories separately and install 
 # Backend
 cd backend
 npm install
+```
 
+```bash
 # Frontend
 cd ../events-app
 npm install
 ```
 
-### 3. Set Up Environment Variables  
+### Set Up Environment Variables  
 
-#### **Backend (`backend/.env`)**  
+Create a `.env` file in both the **backend** and **frontend** folders and add the required environment variables.  
 
-Create a `.env` file in the **backend** folder and add:  
+#### Backend (`backend/.env`)  
 
 ```env
-MONGO_URI=mongodb+srv://naastiaa1809:NM18092004@cluster0.thdu5.mongodb.net/EventsApp?retryWrites=true&w=majority&appName=Cluster0
-EMAIL_USER=eventsapp2024@gmail.com
-EMAIL_PASS=ejye knag yasz vbnj
-SESSION_SECRET=TeamProject3
+MONGO_URI=your_mongodb_connection_string
+EMAIL_USER=your_email
+EMAIL_PASS=your_email_password
+SESSION_SECRET=your_secret_key
 ```
 
-#### **Frontend (`events-app/.env`)**  
-
-Create a `.env` file in the **frontend** folder and add:  
+#### Frontend (`events-app/.env`)  
 
 ```env
 REACT_APP_API_URL=http://localhost:5000
 ```
 
-### 4. Start the Application  
+### Start the Application  
 
 Open two terminal windows:  
 
-#### **Start the Backend**  
+#### Start the Backend  
 
 ```bash
 cd backend
 npm start
 ```
 
-#### **Start the Frontend**  
+#### Start the Frontend  
 
 ```bash
 cd events-app
@@ -103,4 +101,5 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 ## Credits  
 
 This project was created by **Anastasiia Peliukhovska** and the team.  
+```
 
